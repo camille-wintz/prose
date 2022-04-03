@@ -2,16 +2,34 @@ import { useQuery, useQueryClient } from "react-query";
 import { useProject } from "./useProject";
 
 export const useChapters = () => {
-  const { root } = useProject();
+  const { root, main, saveMain } = useProject();
   const client = useQueryClient();
   const { data, status } = useQuery<string[]>(
-    ["getChapters", root],
+    ["getChapters", root, main?.chapters],
     async () => {
+      if (!main) {
+        return [];
+      }
+
       try {
         const files = await Neutralino.filesystem.readDirectory(
           root + "/chapters"
         );
-        return files.filter((f) => f.type !== "DIRECTORY").map((f) => f.entry);
+        const chapterFiles = files
+          .filter((f) => f.type !== "DIRECTORY")
+          .map((f) => f.entry);
+        const missingChapters = chapterFiles.filter(
+          (f) => !main.chapters?.some((c) => c === f)
+        );
+
+        if (missingChapters.length > 0) {
+          saveMain({
+            ...main,
+            chapters: [...(main.chapters || []), ...missingChapters],
+          });
+        }
+
+        return [...(main.chapters || []), ...missingChapters];
       } catch (e: any) {
         if (e.code === "NE_FS_NOPATHE") {
           Neutralino.filesystem.createDirectory(root + "/chapters");
@@ -33,8 +51,6 @@ export const useChapters = () => {
       title + ".md",
     ]);
   };
-
-  console.log(data);
 
   return {
     chapters: data,

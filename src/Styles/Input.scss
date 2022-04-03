@@ -9,9 +9,9 @@ input.input-text:-webkit-autofill:focus {
   padding-right: 16px;
   color: #b9b9b9 !important;
   -webkit-text-fill-color: #b9b9b9;
-  -webkit-box-shadow: 0 0 0px 1000px $dark2 inset;
+  box-shadow: 0 0 0px 1000px $dark2 inset;
   overflow: hidden;
-  -webkit-background-clip: text !important;
+  background-clip: text !important;
   font-size: 14px;
 }
 

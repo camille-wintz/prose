@@ -1,9 +1,15 @@
 import { useCurrentFile } from "../../Hooks/useCurrentFile";
+import { useProject } from "../../Hooks/useProject";
 import { Editor } from "../Editor/Editor";
 import { Nav } from "./Nav";
 
 export const Project = () => {
+  const { main } = useProject();
   const { currentFile, saveFile } = useCurrentFile();
+
+  if (!main) {
+    return null;
+  }
 
   return (
     <>

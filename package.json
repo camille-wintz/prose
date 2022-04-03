@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "scripts": {
-    "dev": "vite",
+    "dev": "cp -r ./assets ./dist && vite",
     "build": "tsc && vite build && cp -r ./assets ./dist",
     "preview": "vite preview"
   },
@@ -14,6 +14,7 @@
     "Prism": "^2.0.0",
     "prismjs": "^1.27.0",
     "react": "^17.0.2",
+    "react-beautiful-dnd": "^13.1.0",
     "react-dom": "^17.0.2",
     "react-icons": "^4.3.1",
     "react-query": "^3.34.19",
@@ -30,6 +31,7 @@
   "devDependencies": {
     "@types/prismjs": "^1.26.0",
     "@types/react": "^17.0.33",
+    "@types/react-beautiful-dnd": "^13.1.2",
     "@types/react-dom": "^17.0.10",
     "@vitejs/plugin-react": "^1.0.7",
     "autoprefixer": "^10.4.4",
