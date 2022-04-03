@@ -1,0 +1,31 @@
+[contenteditable] {
+  font-family: "Volkorn";
+  margin: auto;
+  max-width: 830px;
+  color: $white;
+  padding-top: 80px;
+  padding-bottom: 80px;
+
+  p {
+    text-align: justify;
+    hyphens: auto;
+    text-indent: 4rem;
+    font-size: 1.5rem;
+    line-height: 2.3rem;
+    width: 100%;
+    margin: 1.1rem;
+  }
+
+  blockquote {
+    font-size: 1.5rem;
+    text-align: center;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    text-align: center;
+  }
+}

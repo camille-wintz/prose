@@ -1,0 +1,18 @@
+@import url("https://fonts.googleapis.com/css2?family=Assistant:wght@300;600&family=Averia+Serif+Libre:ital,wght@0,300;1,300&family=Vollkorn:ital,wght@0,400;0,700;1,400&display=swap");
+@import url("//hello.myfonts.net/count/42df7c");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import "./Styles/Vars.scss";
+
+html,
+body,
+#root {
+  height: 100%;
+  position: relative;
+}
+
+@import "./Styles/Input.scss";
+@import "./Styles/Editor.scss";

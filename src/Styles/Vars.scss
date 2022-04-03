@@ -1,0 +1,32 @@
+$dark1: #181a1c;
+$dark2: #1e2227;
+$darkPurple: #34083c;
+$darkBlue: rgba(14, 57, 83, 1);
+$brightBlue: #0a62a2;
+$brightPurple: #77038d;
+$brightOrange: #a2680a;
+$brightGreen: #627e04;
+$brightRed: #8d2d03;
+$midBlue: #064979;
+$midPurple: #560465;
+$white: #bdc9d6;
+
+.dark-blue-to-purple {
+  background-image: linear-gradient(
+    146deg,
+    rgba(14, 57, 83, 1) 0%,
+    rgba(52, 8, 60, 1) 100%
+  );
+}
+
+.blue-to-purple {
+  background-image: linear-gradient(146deg, $midBlue 0%, $midPurple 100%);
+}
+
+.bright-blue-to-purple {
+  background-image: linear-gradient(146deg, $brightBlue, $brightPurple);
+}
+
+.bright-orange-to-blue {
+  background-image: linear-gradient(146deg, $brightOrange, $brightBlue);
+}

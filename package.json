@@ -1,0 +1,42 @@
+{
+  "name": "react-ts",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build && cp -r ./assets ./dist",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@types/react-transition-group": "^4.4.4",
+    "postcss-sass": "^0.5.0",
+    "postcss-scss": "^4.0.3",
+    "Prism": "^2.0.0",
+    "prismjs": "^1.27.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-icons": "^4.3.1",
+    "react-query": "^3.34.19",
+    "react-transition-group": "^4.4.2",
+    "remark-parse": "^10.0.1",
+    "remark-slate": "^1.8.5",
+    "sass": "^1.49.11",
+    "slate": "^0.76.1",
+    "slate-history": "^0.66.0",
+    "slate-react": "^0.76.1",
+    "unified": "^10.1.2",
+    "vite-plugin-react-css-modules": "^1.0.0"
+  },
+  "devDependencies": {
+    "@types/prismjs": "^1.26.0",
+    "@types/react": "^17.0.33",
+    "@types/react-dom": "^17.0.10",
+    "@vitejs/plugin-react": "^1.0.7",
+    "autoprefixer": "^10.4.4",
+    "css-tree": "^2.1.0",
+    "postcss": "^8.4.12",
+    "tailwindcss": "^3.0.23",
+    "typescript": "^4.5.4",
+    "vite": "^2.9.0"
+  }
+}

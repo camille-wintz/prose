@@ -1,0 +1,31 @@
+.input-text,
+input.input-text:-webkit-autofill,
+input.input-text:-webkit-autofill:hover,
+input.input-text:-webkit-autofill:focus {
+  border-radius: 6px;
+  background-color: #1f2224 !important;
+  padding: 8px;
+  padding-left: 16px;
+  padding-right: 16px;
+  color: #b9b9b9 !important;
+  -webkit-text-fill-color: #b9b9b9;
+  -webkit-box-shadow: 0 0 0px 1000px $dark2 inset;
+  overflow: hidden;
+  -webkit-background-clip: text !important;
+  font-size: 14px;
+}
+
+.input-text-label {
+  color: #5f5f5f;
+  font-size: 0.8rem;
+}
+
+.input-text-error {
+  color: #b736d0;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+input {
+  outline: none;
+}
