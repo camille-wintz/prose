@@ -1,30 +1,18 @@
+import { ELEMENT_BLOCKQUOTE, ELEMENT_H1, ELEMENT_H2 } from "@udecode/plate";
 import React from "react";
 import { Subtitle, Title } from "../Typography";
-import { NodeType } from "./Editor";
 
 export const EditorElement = ({ element, attributes, children }: any) => {
-  switch (element.type as NodeType) {
-    case "Header":
-      return (
-        <Title className="text-4xl" {...attributes}>
-          {children}
-        </Title>
-      );
-    case "SubHeader":
-      return (
-        <Subtitle className="text-3xl" {...attributes}>
-          {children}
-        </Subtitle>
-      );
-    case "Note":
-      return (
-        <blockquote className="text-label font-sans" {...attributes}>
-          {children}
-        </blockquote>
-      );
+  switch (element.type) {
+    case ELEMENT_H1:
+      return <h1 {...attributes}>{children}</h1>;
+    case ELEMENT_H2:
+      return <h2 {...attributes}>{children}</h2>;
+    case ELEMENT_BLOCKQUOTE:
+      return <blockquote {...attributes}>{children}</blockquote>;
     default:
       return (
-        <p className="text-xl" {...attributes}>
+        <p c- {...attributes}>
           {children}
         </p>
       );

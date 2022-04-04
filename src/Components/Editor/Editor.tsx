@@ -1,50 +1,41 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import { BaseEditor, Descendant } from "slate";
 import {
-  BaseEditor,
-  createEditor,
-  Descendant,
-  Text,
-  Transforms,
-  Editor as SlateEditor,
-} from "slate";
-import { Slate, Editable, withReact, ReactEditor } from "slate-react";
-import { unified } from "unified";
-import markdown from "remark-parse";
-import slate, { serialize } from "remark-slate";
-import { addMarkdown, decorateMarkdown } from "./Prism";
-import Prism from "prismjs";
-import { Leaf } from "./Leaf";
-import { withHistory } from "slate-history";
+  createDeserializeMdPlugin,
+  createHorizontalRulePlugin,
+  createSelectOnBackspacePlugin,
+  ELEMENT_BLOCKQUOTE,
+  ELEMENT_DEFAULT,
+  ELEMENT_H1,
+  ELEMENT_H2,
+  ELEMENT_HR,
+  Plate,
+  usePlateEditorRef,
+} from "@udecode/plate";
+import { ReactEditor } from "slate-react";
 import { EditorElement } from "./EditorElement";
-
-addMarkdown();
+import { createPreviewPlugin } from "./createPreviewPlugin";
+import { plugins } from "./plugins";
 
 const isCustomText = (v: CustomText | any): v is CustomText => {
   return v.text;
 };
 
-export type NodeType =
-  | "Paragraph"
-  | "Header"
-  | "SubHeader"
-  | "Note"
-  | "Include";
 type CustomText = { text: string };
 
 declare module "slate" {
   interface CustomTypes {
     Editor: BaseEditor & ReactEditor;
-    Element: { type: NodeType; children: CustomText[] };
+    Element: { type?: string; children: CustomText[] };
     Text: CustomText;
   }
 }
 
 const types = {
-  "#": "Header",
-  "##": "SubHeader",
-  "=": "Note",
-  "Include:": "Include",
-} as { [key: string]: NodeType };
+  "#": ELEMENT_H1,
+  "##": ELEMENT_H2,
+  "=": ELEMENT_BLOCKQUOTE,
+} as { [key: string]: string };
 
 export const Editor = ({
   onChange,
@@ -55,21 +46,22 @@ export const Editor = ({
   onChange: (v: string) => void;
   value: string;
 }) => {
-  const editor = useMemo(() => withHistory(withReact(createEditor())), []);
-  const [editorValue, setEditorValue] = useState<Descendant[]>();
+  const editor = usePlateEditorRef();
+  const currentValue = useRef<Descendant[]>();
+  const [initialValue, setInitialValue] = useState<Descendant[]>();
 
-  const renderLeaf = useCallback((props) => <Leaf {...props} />, []);
-  const renderElement = useCallback(
-    ({ attributes, children, element }) => (
-      <EditorElement element={element} attributes={attributes}>
-        {children}
-      </EditorElement>
-    ),
-    []
-  );
-  const decorate = useCallback(decorateMarkdown, []);
+  const editorPlugins = [
+    ...plugins.basicNodes,
+    createHorizontalRulePlugin(),
+    createSelectOnBackspacePlugin({
+      options: { query: { allow: [ELEMENT_HR] } },
+    }),
+    createPreviewPlugin(),
+    createDeserializeMdPlugin(),
+  ];
+
   const getNodeType = (block: string) => {
-    let nodeType: NodeType = "Paragraph";
+    let nodeType: string = ELEMENT_DEFAULT;
     for (let start in types) {
       if (block.trim().startsWith(start)) {
         nodeType = types[start];
@@ -79,26 +71,49 @@ export const Editor = ({
     return nodeType;
   };
 
+  const paste = async () => {
+    const clip = await Neutralino.clipboard.readText();
+    const paragraphs = clip.split("\n");
+    for (let para in paragraphs) {
+      editor.insertNode({ type: ELEMENT_DEFAULT, children: [{ text: para }] });
+    }
+  };
+
   const onKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
     if (e.key === "'") {
       e.preventDefault();
       editor.insertText("’");
+      return;
     }
-
-    const selection = editor.selection;
-    if (selection !== null && selection.anchor !== null) {
-      const selected = editor.children[selection.anchor.path[0]];
-      if (isCustomText(selected)) {
+    if (e.key === '"') {
+      e.preventDefault();
+      if (!editor.selection) {
         return;
       }
-      const nodeType = getNodeType(selected.children[0].text);
-      if (nodeType !== selected.type) {
-        Transforms.setNodes(
-          editor,
-          { type: nodeType },
-          { match: (n) => SlateEditor.isBlock(editor, n) }
-        );
+      const selected = editor.children[editor.selection.anchor.path[0]];
+
+      const lastQuote = selected.children[0].text.lastIndexOf("“");
+      const lastClosingQuote = selected.children[0].text.lastIndexOf("”");
+      editor.insertText(lastQuote > lastClosingQuote ? "”" : "“");
+    }
+    if (e.code === "KeyV" && (e.ctrlKey || e.metaKey)) {
+      paste();
+    }
+    if (e.code === "KeyC" && (e.ctrlKey || e.metaKey)) {
+      paste();
+    }
+    if (e.code === "KeyX" && (e.ctrlKey || e.metaKey)) {
+      paste();
+    }
+    if (e.code === "KeyS" && (e.ctrlKey || e.metaKey)) {
+      if (!currentValue.current) {
+        return;
       }
+      onChange(
+        currentValue.current
+          .map((d) => (isCustomText(d) ? d.text : d.children[0].text))
+          .join("\n")
+      );
     }
   };
 
@@ -110,41 +125,23 @@ export const Editor = ({
         return { type: nodeType, children: [{ text: b }] };
       });
 
-      setEditorValue((val) => desc);
+      setInitialValue((val) => desc);
     }
   }, [value]);
 
-  useEffect(() => {
-    if (!editorValue) {
-      return;
-    }
-    onChange(
-      editorValue
-        .map((d) => (isCustomText(d) ? d.text : d.children[0].text))
-        .join("\n")
-    );
-  }, [editorValue]);
-
-  if (!editorValue) {
-    return null;
-  }
-
   return (
     <div className={className}>
-      <Slate
+      <Plate
+        plugins={editorPlugins}
         editor={editor}
-        value={editorValue}
+        initialValue={initialValue}
         onChange={(newValue) => {
-          setEditorValue(newValue);
+          currentValue.current = newValue;
         }}
-      >
-        <Editable
-          onKeyDown={(e) => onKeyDown(e)}
-          decorate={decorate}
-          renderLeaf={renderLeaf}
-          renderElement={renderElement}
-        />
-      </Slate>
+        editableProps={{
+          onKeyDown,
+        }}
+      />
     </div>
   );
 };

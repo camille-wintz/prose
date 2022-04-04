@@ -1,24 +1,37 @@
 [contenteditable] {
-  font-family: "Volkorn";
+  font-family: "Merriweather";
   margin: auto;
   max-width: 830px;
   color: $white;
   padding-top: 80px;
   padding-bottom: 80px;
 
+  h1,
+  h2 {
+    font-family: "Averia Serif Libre";
+    font-size: 4rem;
+  }
+
   p {
     text-align: justify;
     hyphens: auto;
     text-indent: 4rem;
-    font-size: 1.5rem;
-    line-height: 2.3rem;
+    font-size: 1.2rem;
+    letter-spacing: 1px;
+    line-height: 2.5rem;
     width: 100%;
     margin: 1.1rem;
+    transition: all 500ms ease;
+  }
+
+  p:hover {
+    color: #fff;
   }
 
   blockquote {
-    font-size: 1.5rem;
+    font-size: 1.1rem;
     text-align: center;
+    color: $label;
   }
 
   h1,

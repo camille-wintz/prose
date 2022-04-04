@@ -14,6 +14,9 @@ interface INeutralino {
     writeFile: (path: string, content: string) => Promise<void>;
     readFile: (path: string) => Promise<string>;
   };
+  clipboard: {
+    readText: () => Promise<string>;
+  };
 }
 
 declare const Neutralino: INeutralino;

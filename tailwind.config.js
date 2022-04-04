@@ -27,7 +27,7 @@ module.exports = {
     fontFamily: {
       display: ["Averia Serif Libre"],
       sans: ["Assistant"],
-      serif: ["Volkorn"],
+      serif: ["Merriweather"],
     },
   },
   plugins: [],
