@@ -1,10 +1,17 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
-import { BaseEditor, createEditor, Descendant, Text } from "slate";
+import {
+  BaseEditor,
+  createEditor,
+  Descendant,
+  Text,
+  Transforms,
+  Editor as SlateEditor,
+} from "slate";
 import { Slate, Editable, withReact, ReactEditor } from "slate-react";
 import { unified } from "unified";
 import markdown from "remark-parse";
 import slate, { serialize } from "remark-slate";
-import { addMarkdown } from "./Prism";
+import { addMarkdown, decorateMarkdown } from "./Prism";
 import Prism from "prismjs";
 import { Leaf } from "./Leaf";
 import { withHistory } from "slate-history";
@@ -32,6 +39,13 @@ declare module "slate" {
   }
 }
 
+const types = {
+  "#": "Header",
+  "##": "SubHeader",
+  "=": "Note",
+  "Include:": "Include",
+} as { [key: string]: NodeType };
+
 export const Editor = ({
   onChange,
   className = "",
@@ -53,68 +67,46 @@ export const Editor = ({
     ),
     []
   );
-  const decorate = useCallback(([node, path]) => {
-    const ranges: any[] = [];
-
-    if (!Text.isText(node)) {
-      return ranges;
+  const decorate = useCallback(decorateMarkdown, []);
+  const getNodeType = (block: string) => {
+    let nodeType: NodeType = "Paragraph";
+    for (let start in types) {
+      if (block.trim().startsWith(start)) {
+        nodeType = types[start];
+      }
     }
 
-    const getLength = (token: any) => {
-      if (typeof token === "string") {
-        return token.length;
-      } else if (typeof token.content === "string") {
-        return token.content.length;
-      } else {
-        return token.content.reduce((l: any, t: any) => l + getLength(t), 0);
-      }
-    };
-
-    const tokens = Prism.tokenize(node.text, Prism.languages.markdown);
-    let start = 0;
-
-    for (const token of tokens) {
-      const length = getLength(token);
-      const end = start + length;
-
-      if (typeof token !== "string") {
-        ranges.push({
-          [token.type]: true,
-          anchor: { path, offset: start },
-          focus: { path, offset: end },
-        });
-      }
-
-      start = end;
-    }
-
-    return ranges;
-  }, []);
+    return nodeType;
+  };
 
   const onKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
     if (e.key === "'") {
       e.preventDefault();
       editor.insertText("’");
     }
+
+    const selection = editor.selection;
+    if (selection !== null && selection.anchor !== null) {
+      const selected = editor.children[selection.anchor.path[0]];
+      if (isCustomText(selected)) {
+        return;
+      }
+      const nodeType = getNodeType(selected.children[0].text);
+      if (nodeType !== selected.type) {
+        Transforms.setNodes(
+          editor,
+          { type: nodeType },
+          { match: (n) => SlateEditor.isBlock(editor, n) }
+        );
+      }
+    }
   };
 
   useEffect(() => {
     if (value !== undefined) {
-      const types = {
-        "#": "Header",
-        "##": "SubHeader",
-        "=": "Note",
-        "Include:": "Include",
-      } as { [key: string]: NodeType };
-
       const blocks = value.split("\n");
       const desc: Descendant[] = blocks.map((b) => {
-        let nodeType: NodeType = "Paragraph";
-        for (let start in types) {
-          if (b.trim().startsWith(start)) {
-            nodeType = types[start];
-          }
-        }
+        const nodeType = getNodeType(b);
         return { type: nodeType, children: [{ text: b }] };
       });
 

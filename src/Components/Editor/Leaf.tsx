@@ -9,9 +9,6 @@ export const Leaf = ({
   children: ReactNode;
   leaf: any;
 }) => {
-  console.log(attributes);
-  console.log(children);
-  console.log(leaf);
   const props = {
     bold: "font-bold",
     italic: "italic",
