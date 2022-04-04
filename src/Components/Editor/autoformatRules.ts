@@ -42,6 +42,14 @@ export const format = (editor: TEditor, customFormatting: any) => {
   }
 };
 
+export const formatList = (editor: TEditor, elementType: string) => {
+  format(editor, () =>
+    toggleList(editor as PlateEditor, {
+      type: elementType,
+    })
+  );
+};
+
 export const formatText = (editor: TEditor, text: string) => {
   format(editor, () => editor.insertText(text));
 };
@@ -57,5 +65,42 @@ export const autoformatRules: AutoformatRule[] = [
     mode: "mark",
     type: MARK_ITALIC,
     match: "*",
+  },
+  {
+    mode: "mark",
+    type: MARK_ITALIC,
+    match: "_",
+  },
+  {
+    mode: "block",
+    type: ELEMENT_H1,
+    match: "# ",
+    insertTrigger: true,
+  },
+  {
+    mode: "block",
+    type: ELEMENT_H2,
+    match: "## ",
+    insertTrigger: true,
+  },
+  {
+    mode: "block",
+    type: ELEMENT_CODE_BLOCK,
+    match: "= ",
+    insertTrigger: true,
+  },
+
+  {
+    mode: "block",
+    type: ELEMENT_HR,
+    match: ["---", "—-"],
+    insertTrigger: true,
+    format: (editor) => {
+      setNodes(editor, { type: ELEMENT_HR });
+      insertNodes(editor, {
+        type: ELEMENT_DEFAULT,
+        children: [{ text: "" }],
+      });
+    },
   },
 ];

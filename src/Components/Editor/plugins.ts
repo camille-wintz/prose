@@ -22,6 +22,8 @@ import {
   ResetNodePlugin,
   SelectOnBackspacePlugin,
   TrailingBlockPlugin,
+  createCodeBlockPlugin,
+  createBlockquotePlugin,
 } from "@udecode/plate";
 import { EditableProps } from "slate-react/dist/components/editable";
 import { autoformatRules } from "./autoformatRules";
@@ -33,7 +35,6 @@ const resetBlockTypesCommonRule = {
 
 interface Config {
   editableProps: EditableProps;
-  align: Partial<PlatePlugin>;
   autoformat: Partial<PlatePlugin<{}, AutoformatPlugin>>;
   forceLayout: Partial<PlatePlugin<{}, NormalizeTypesPlugin>>;
   lineHeight: Partial<PlatePlugin>;
@@ -44,20 +45,8 @@ interface Config {
 
 export const config: Config = {
   editableProps: {
-    // autoFocus: process.env.NODE_ENV !== 'production',
     autoFocus: false,
-    spellCheck: false,
     placeholder: "Type…",
-    style: {
-      padding: "15px",
-    },
-  },
-  align: {
-    inject: {
-      props: {
-        validTypes: [ELEMENT_PARAGRAPH, ELEMENT_H1, ELEMENT_H2, ELEMENT_H3],
-      },
-    },
   },
   lineHeight: {
     inject: {
@@ -104,7 +93,12 @@ export const config: Config = {
 };
 
 const basicElements = createPlugins(
-  [createHeadingPlugin(), createParagraphPlugin()],
+  [
+    createBlockquotePlugin(),
+    createCodeBlockPlugin(),
+    createHeadingPlugin(),
+    createParagraphPlugin(),
+  ],
   {
     components: createPlateUI(),
   }
@@ -115,19 +109,7 @@ const basicMarks = createPlugins([createBoldPlugin(), createItalicPlugin()], {
 });
 
 export const plugins = {
-  basicElements,
-  basicMarks,
-  basicNodes: createPlugins([...basicElements, ...basicMarks], {
+  basicNodes: createPlugins([...basicMarks, ...basicElements], {
     components: createPlateUI(),
   }),
-  image: createPlugins(
-    [
-      createBasicElementsPlugin(),
-      ...basicMarks,
-      createSelectOnBackspacePlugin(config.selectOnBackspace),
-    ],
-    {
-      components: createPlateUI(),
-    }
-  ),
 };

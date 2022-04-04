@@ -16,6 +16,7 @@ interface INeutralino {
   };
   clipboard: {
     readText: () => Promise<string>;
+    writeText: (text: string) => Promise<void>;
   };
 }
 
