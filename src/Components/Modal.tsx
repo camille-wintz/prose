@@ -15,16 +15,12 @@ export const Modal = ({
     <CSSTransition
       timeout={500}
       in={show}
+      appear={true}
       mountOnEnter
       unmountOnExit
-      classNames={{
-        enterActive: styles.modalEnter,
-        enterDone: styles.modalEnterActive,
-        exitActive: styles.modalExit,
-        exitDone: styles.modalExitActive,
-      }}
+      classNames={styles}
     >
-      <div className="z-10 fixed h-screen w-screen left-0 top-0 flex items-center justify-center">
+      <div className="opacity-1 z-10 fixed h-screen w-screen left-0 top-0 flex items-center justify-center transition-all">
         <div className="fixed dark-blue-to-purple cursor-pointer w-screen h-screen opacity-95"></div>
         <div
           className={`bg-dark1 relative text-white p-8 rounded-md shadow-lg w-450`}

@@ -5,7 +5,7 @@ export const useChapters = () => {
   const { root, main, saveMain } = useProject();
   const client = useQueryClient();
   const { data, status } = useQuery<string[]>(
-    ["getChapters", root, main?.chapters],
+    ["getChapters", root],
     async () => {
       if (!main) {
         return [];
@@ -44,7 +44,7 @@ export const useChapters = () => {
     const path = root + "/chapters/" + title + ".md";
     await Neutralino.filesystem.writeFile(
       root + "/chapters/" + title + ".md",
-      "# " + title
+      "# " + title + "\n "
     );
     client.setQueryData<string[]>(["getChapters", root], (chapters) => [
       ...(chapters || []),

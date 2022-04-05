@@ -13,6 +13,7 @@ import { Input } from "../Form/Input";
 import { Modal } from "../Modal";
 import { Divider, Subtitle, Title } from "../Typography";
 import { useProject } from "../../Hooks/useProject";
+import { useQueryClient } from "react-query";
 
 export const NavLink = ({
   onClick,
@@ -64,6 +65,7 @@ export const Add = ({
 );
 
 export const Nav = ({ className }: { className?: string }) => {
+  const client = useQueryClient();
   const [title, setTitle] = useState("");
   const [showAddChapter, setShowAddChapter] = useState(false);
   const { chapters, addChapter } = useChapters();
@@ -89,6 +91,8 @@ export const Nav = ({ className }: { className?: string }) => {
       result.destination.index
     );
 
+    client.setQueryData<string[]>(["getChapters", root], items);
+
     saveMain({
       ...main,
       chapters: items,
@@ -102,7 +106,13 @@ export const Nav = ({ className }: { className?: string }) => {
   return (
     <>
       <div className={`flex flex-col ${className}`}>
-        <Title className="text-3xl mb-2">Storms over Daggers</Title>
+        <Title
+          className={`text-3xl mb-2 ${
+            className === "items-center" ? "text-center" : ""
+          }`}
+        >
+          Storms over Daggers
+        </Title>
         <Subtitle className="text-xl">word count</Subtitle>
         <Divider className="bright-orange-to-blue" />
         <NavHeader className="">Chapters</NavHeader>

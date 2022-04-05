@@ -1,6 +1,9 @@
 module.exports = {
   content: ["./src/**/*.{js,jsx,tsx}"],
   theme: {
+    transitionDuration: {
+      DEFAULT: "500ms",
+    },
     extend: {
       width: {
         250: "250px",

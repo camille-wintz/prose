@@ -90,10 +90,8 @@ export const Editor = ({
       return;
     }
 
-    console.log(selected);
     if (selected && !isCustomText(selected)) {
       const targetNode = getTextNode(text);
-      console.log(targetNode);
       if (targetNode.type !== selected.type) {
         Transforms.setNodes(editor, targetNode);
       }
