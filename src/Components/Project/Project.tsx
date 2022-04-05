@@ -23,6 +23,9 @@ export const Project = () => {
               value={currentFile.content}
               onChange={(value) => saveFile(value)}
             />
+            <div className="text-label fixed right-8 bottom-6">
+              {currentFile.wordCount} words
+            </div>
           </div>
         </>
       ) : null}

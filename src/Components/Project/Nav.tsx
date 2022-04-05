@@ -26,7 +26,7 @@ export const NavLink = ({
   return (
     <button
       onClick={onClick}
-      className="text-label hover:text-white transition-all flex"
+      className={`hover:text-white transition-all flex ${className}`}
     >
       {children}
     </button>
@@ -67,8 +67,8 @@ export const Nav = ({ className }: { className?: string }) => {
   const [title, setTitle] = useState("");
   const [showAddChapter, setShowAddChapter] = useState(false);
   const { chapters, addChapter } = useChapters();
-  const { openFile } = useCurrentFile();
-  const { main, saveMain } = useProject();
+  const { openFile, currentFile } = useCurrentFile();
+  const { main, saveMain, root } = useProject();
 
   const reorder = (list: string[], startIndex: number, endIndex: number) => {
     const result = Array.from(list);
@@ -102,9 +102,9 @@ export const Nav = ({ className }: { className?: string }) => {
   return (
     <>
       <div className={`flex flex-col ${className}`}>
-        <Title className="text-3xl">book title</Title>
+        <Title className="text-3xl mb-2">Storms over Daggers</Title>
         <Subtitle className="text-xl">word count</Subtitle>
-        <Divider className="bright-blue-to-purple" />
+        <Divider className="bright-orange-to-blue" />
         <NavHeader className="">Chapters</NavHeader>
         <DragDropContext onDragEnd={(e) => onDragEnd(e)}>
           <Droppable droppableId="droppable">
@@ -124,8 +124,19 @@ export const Nav = ({ className }: { className?: string }) => {
                             : ""
                         }`}
                       >
-                        <FaBars className="text-label mr-2" />
+                        <FaBars
+                          className={
+                            currentFile?.path === root + "/chapters/" + c
+                              ? "text-label mr-2 text-brightBlue"
+                              : "text-label mr-2"
+                          }
+                        />
                         <NavLink
+                          className={
+                            currentFile?.path === root + "/chapters/" + c
+                              ? "text-white"
+                              : "text-label"
+                          }
                           key={c}
                           onClick={() => openFile("/chapters/" + c)}
                         >

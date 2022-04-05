@@ -4,7 +4,7 @@ import { Editor } from "slate";
 export const paste = async (editor: Editor) => {
   const clip = await Neutralino.clipboard.readText();
   const paragraphs = clip.split("\n");
-  for (let para in paragraphs) {
+  for (let para of paragraphs) {
     editor.insertNode({ type: ELEMENT_DEFAULT, children: [{ text: para }] });
   }
 };
