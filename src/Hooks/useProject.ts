@@ -3,6 +3,8 @@ import { useQuery, useQueryClient } from "react-query";
 
 export interface MainFile {
   chapters: string[];
+  projectFiles: string[];
+  wordCount: number;
 }
 
 export const ProjectContext = React.createContext({
@@ -34,7 +36,18 @@ export const useProject = () => {
         const content = await Neutralino.filesystem.readFile(
           root + "/Main.json"
         );
-        return JSON.parse(content);
+        const parsed = JSON.parse(content);
+        let wc = 0;
+        for (let chapter of parsed.chapters) {
+          const content = await Neutralino.filesystem.readFile(
+            root + "/chapters/" + chapter
+          );
+          wc += content.split(" ").length;
+        }
+        return {
+          ...parsed,
+          wordCount: wc,
+        };
       }
 
       await Neutralino.filesystem.writeFile(
@@ -46,10 +59,12 @@ export const useProject = () => {
 
       return {
         chapters: [],
+        projectFiles: [],
       };
     } catch (e: any) {
       return {
         chapters: [],
+        projectFiles: [],
       };
     }
   });

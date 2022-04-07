@@ -41,7 +41,7 @@ export const useChapters = () => {
   );
 
   const addChapter = async (title: string) => {
-    const path = root + "/chapters/" + title + ".md";
+    root + "/chapters/" + title + ".md";
     await Neutralino.filesystem.writeFile(
       root + "/chapters/" + title + ".md",
       "# " + title + "\n "

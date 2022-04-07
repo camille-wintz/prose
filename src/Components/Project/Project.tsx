@@ -3,6 +3,7 @@ import { useCurrentFile } from "../../Hooks/useCurrentFile";
 import { useProject } from "../../Hooks/useProject";
 import { Editor } from "../Editor/Editor";
 import { Nav } from "./Nav";
+import "../../Styles/Nav.scss";
 
 export const Project = () => {
   const { main } = useProject();
@@ -21,8 +22,10 @@ export const Project = () => {
 
   return (
     <>
-      <div className={`w-250 ${showFile ? "flex p-8" : "justify-center"}`}>
-        <Nav className={showFile ? "items-left" : "items-center"} />
+      <div
+        className={`h-full w-250 ${showFile ? "flex p-8" : "justify-center"}`}
+      >
+        <Nav className={showFile ? "navLeft" : "navCenter"} />
       </div>
       {currentFile ? (
         <>
@@ -36,6 +39,8 @@ export const Project = () => {
             </div>
           </div>
         </>
+      ) : showFile ? (
+        <div className="grow flex overflow-auto justify-center h-full bg-dark2"></div>
       ) : null}
     </>
   );

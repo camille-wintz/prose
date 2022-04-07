@@ -7,6 +7,8 @@
   padding-bottom: 80px;
 
   h1 {
+    margin-left: 1.1rem;
+    margin-right: 1.1rem;
     &::after {
       content: " ";
       display: block;
@@ -31,7 +33,6 @@
     font-size: 1.2rem;
     letter-spacing: 1px;
     line-height: 2.5rem;
-    width: 100%;
     margin: 1.1rem;
     transition: all 500ms ease;
   }

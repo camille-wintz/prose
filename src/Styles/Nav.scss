@@ -1,0 +1,13 @@
+.navLeft {
+  button {
+    text-align: left;
+  }
+}
+
+.navCenter {
+  text-align: center;
+
+  .navLine {
+    justify-content: center;
+  }
+}
