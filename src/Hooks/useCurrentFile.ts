@@ -16,26 +16,28 @@ export const useCurrentFile = () => {
   const { root } = useProject();
   const { currentFile, setCurrentFile } = useContext(CurrentFileContext);
 
+  const saveFile = async (content: string) => {
+    if (!currentFile) {
+      return;
+    }
+    try {
+      await Electron.filesystem.writeFile(currentFile?.path, content);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   return {
     currentFile,
     openFile: async (path: string) => {
       setCurrentFile(undefined);
-      const content = await Neutralino.filesystem.readFile(root + path);
+      const content = await Electron.filesystem.readFile(root + path);
       setCurrentFile({
         path: root + path,
         content,
         wordCount: content.split(" ").length,
       });
     },
-    saveFile: async (content: string) => {
-      if (!currentFile) {
-        return;
-      }
-      try {
-        await Neutralino.filesystem.writeFile(currentFile?.path, content);
-      } catch (e) {
-        console.log(e);
-      }
-    },
+    saveFile,
   };
 };

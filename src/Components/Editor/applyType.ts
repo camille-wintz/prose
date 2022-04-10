@@ -6,11 +6,29 @@ import {
   ELEMENT_HR,
 } from "@udecode/plate";
 
+export type CustomText = { text: string };
+
+declare module "slate" {
+  interface CustomTypes {
+    Element: { type?: string; children: CustomText[] };
+    Text: CustomText;
+  }
+}
+
+export const commandTypes = {
+  "@Signet": "signet",
+  "@Scene": "scene",
+  "@Todo": "todo",
+  "@Include": "include",
+  "@Note": "note",
+};
+
 const types = {
   "#": ELEMENT_H1,
   "##": ELEMENT_H2,
-  "=": ELEMENT_BLOCKQUOTE,
+  "//": ELEMENT_BLOCKQUOTE,
   "---": ELEMENT_HR,
+  ...commandTypes,
 } as { [key: string]: string };
 
 export const getTextNode = (b: string) => {
@@ -26,4 +44,8 @@ export const getNodeType = (block: string) => {
   }
 
   return nodeType;
+};
+
+export const isCustomText = (v: CustomText | any): v is CustomText => {
+  return v.text;
 };

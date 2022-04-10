@@ -12,30 +12,34 @@ export const useProjectFiles = () => {
       }
 
       try {
-        const files = await Neutralino.filesystem.readDirectory(root);
-        const projectFiles = files
-          .filter(
-            (f) =>
-              f.type !== "DIRECTORY" &&
-              f.entry !== "Main.json" &&
-              f.entry !== ".DS_Store"
-          )
-          .map((f) => f.entry);
-
-        console.log(projectFiles);
+        const files = await Electron.filesystem.readDirectory(root);
+        const projectFiles = files.filter(
+          (f) => f !== "Main.json" && f !== ".DS_Store"
+        );
 
         const missingFiles = projectFiles.filter(
           (f) => !main.projectFiles?.some((c) => c === f)
         );
 
-        if (missingFiles.length > 0) {
+        const deletedFiles = main.projectFiles.filter(
+          (f) => !projectFiles?.some((c) => c === f)
+        );
+
+        if (missingFiles.length > 0 || deletedFiles.length > 0) {
           saveMain({
             ...main,
-            projectFiles: [...(main.projectFiles || []), ...missingFiles],
+            projectFiles: [
+              ...(main.projectFiles.filter((f) => !deletedFiles.includes(f)) ||
+                []),
+              ...missingFiles,
+            ],
           });
         }
 
-        return [...(main.projectFiles || []), ...missingFiles];
+        return [
+          ...(main.projectFiles.filter((f) => !deletedFiles.includes(f)) || []),
+          ...missingFiles,
+        ];
       } catch (e: any) {
         console.log(e);
 
@@ -49,7 +53,7 @@ export const useProjectFiles = () => {
       title.indexOf(".") === -1
         ? root + "/" + title + ".md"
         : root + "/" + title;
-    await Neutralino.filesystem.writeFile(path, "# " + title + "\n ");
+    await Electron.filesystem.writeFile(path, "# " + title + "\n ");
     client.setQueryData<string[]>(["getProjectFiles", root], (projectFiles) => [
       ...(projectFiles || []),
       title.indexOf(".") === -1 ? title + ".md" : title,

@@ -10,11 +10,13 @@ export const EditorElement = ({ element, attributes, children }: any) => {
       return <h2 {...attributes}>{children}</h2>;
     case ELEMENT_BLOCKQUOTE:
       return <blockquote {...attributes}>{children}</blockquote>;
-    default:
+    case "signet":
       return (
-        <p c- {...attributes}>
+        <div className="signet" {...attributes}>
           {children}
-        </p>
+        </div>
       );
+    default:
+      return <p {...attributes}>{children}</p>;
   }
 };

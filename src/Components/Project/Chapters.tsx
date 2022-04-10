@@ -113,7 +113,10 @@ export const Chapters = ({ className }: { className?: string }) => {
             type="button"
             theme="minor"
             className="mt-6 w-1/2"
-            onClick={() => setShowAddChapter(false)}
+            onClick={() => {
+              setTitle("");
+              setShowAddChapter(false);
+            }}
           >
             Cancel
           </Button>

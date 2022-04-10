@@ -92,24 +92,12 @@ export const config: Config = {
   },
 };
 
-const basicElements = createPlugins(
-  [
-    createBlockquotePlugin(),
-    createCodeBlockPlugin(),
-    createHeadingPlugin(),
-    createParagraphPlugin(),
-  ],
-  {
-    components: createPlateUI(),
-  }
-);
-
 const basicMarks = createPlugins([createBoldPlugin(), createItalicPlugin()], {
   components: createPlateUI(),
 });
 
 export const plugins = {
-  basicNodes: createPlugins([...basicMarks, ...basicElements], {
+  basicNodes: createPlugins([...basicMarks], {
     components: createPlateUI(),
   }),
 };

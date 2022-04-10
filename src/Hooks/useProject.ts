@@ -9,7 +9,7 @@ export interface MainFile {
 
 export const ProjectContext = React.createContext({
   root: "",
-  setRoot: (root: string) => {},
+  setRoot: (root: string | ((prev: string) => string)) => {},
 });
 
 export const useProject = () => {
@@ -19,7 +19,7 @@ export const useProject = () => {
   useEffect(() => {
     const lastOpened = localStorage.getItem("LastOpened");
     if (lastOpened) {
-      setRoot(lastOpened);
+      setRoot((root) => lastOpened);
     }
   }, []);
 
@@ -29,17 +29,15 @@ export const useProject = () => {
     }
 
     try {
-      const entries = await Neutralino.filesystem.readDirectory(root);
-      const main = entries.find((e) => e.entry === "Main.json");
+      const entries = await Electron.filesystem.readDirectory(root);
+      const main = entries.find((e) => e === "Main.json");
 
       if (main) {
-        const content = await Neutralino.filesystem.readFile(
-          root + "/Main.json"
-        );
+        const content = await Electron.filesystem.readFile(root + "/Main.json");
         const parsed = JSON.parse(content);
         let wc = 0;
         for (let chapter of parsed.chapters) {
-          const content = await Neutralino.filesystem.readFile(
+          const content = await Electron.filesystem.readFile(
             root + "/chapters/" + chapter
           );
           wc += content.split(" ").length;
@@ -50,7 +48,7 @@ export const useProject = () => {
         };
       }
 
-      await Neutralino.filesystem.writeFile(
+      await Electron.filesystem.writeFile(
         root + "/Main.json",
         JSON.stringify({
           chapters: [],
@@ -70,7 +68,7 @@ export const useProject = () => {
   });
 
   const pickFolder = async () => {
-    const folder = await Neutralino.os.showFolderDialog(
+    const folder = await Electron.filesystem.showFolderDialog(
       "Pick your novel folder"
     );
     setRoot(folder);
@@ -78,7 +76,7 @@ export const useProject = () => {
   };
 
   const saveMain = async (newMain: MainFile) => {
-    await Neutralino.filesystem.writeFile(
+    await Electron.filesystem.writeFile(
       root + "/Main.json",
       JSON.stringify(newMain)
     );

@@ -2,7 +2,21 @@
   "name": "react-ts",
   "private": true,
   "version": "0.0.0",
+  "main": "main.js",
+  "description": "A bottom-up writing app",
+  "author": "Nitz",
+  "mac": {
+    "icon": "./assets/icons/appIcon.png",
+    "category": "public.app-category.utilities"
+  },
+  "files": [
+    "./assets/**/*"
+  ],
+  "directories": {
+    "buildResources": "assets"
+  },
   "scripts": {
+    "start": "electron .",
     "dev": "cp -r ./assets ./dist && vite",
     "build": "tsc && vite build && cp -r ./assets ./dist",
     "preview": "vite preview"
@@ -10,6 +24,7 @@
   "dependencies": {
     "@types/react-transition-group": "^4.4.4",
     "@udecode/plate": "^10.5.1",
+    "mz": "^2.7.0",
     "postcss-sass": "^0.5.0",
     "postcss-scss": "^4.0.3",
     "Prism": "^2.0.0",
@@ -34,6 +49,7 @@
     "@vitejs/plugin-react": "^1.0.7",
     "autoprefixer": "^10.4.4",
     "css-tree": "^2.1.0",
+    "electron": "^18.0.3",
     "postcss": "^8.4.12",
     "tailwindcss": "^3.0.23",
     "typescript": "^4.5.4",

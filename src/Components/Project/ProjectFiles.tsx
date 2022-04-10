@@ -99,36 +99,51 @@ export const ProjectFiles = ({ className }: { className?: string }) => {
           )}
         </Droppable>
       </DragDropContext>
-      <Add onClick={() => setShowAddProjectFile(true)} className="pt-2">
+      <Add
+        onClick={() => {
+          setTitle("");
+          setShowAddProjectFile(true);
+        }}
+        className="pt-2"
+      >
         Add file
       </Add>
-      <Modal title="New chapter" show={showAddProjectFile}>
-        <Input
-          label="Name"
-          value={title}
-          type="text"
-          onChange={(value) => setTitle(value)}
-        />
-        <div className="flex gap-4 justify-center mt-6">
-          <Button
-            type="button"
-            theme="minor"
-            className="mt-6 w-1/2"
-            onClick={() => setShowAddProjectFile(false)}
-          >
-            Cancel
-          </Button>
-          <Button
-            onClick={() => {
-              setShowAddProjectFile(false);
-              addProjectFile(title);
-            }}
-            className="mt-6 w-1/2"
-            disabled={!title}
-          >
-            Add file
-          </Button>
-        </div>
+      <Modal title="New file" show={showAddProjectFile}>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            setShowAddProjectFile(false);
+            addProjectFile(title);
+          }}
+        >
+          <Input
+            label="Name"
+            value={title}
+            type="text"
+            onChange={(value) => setTitle(value)}
+          />
+          <div className="flex gap-4 justify-center mt-6">
+            <Button
+              type="button"
+              theme="minor"
+              className="mt-6 w-1/2"
+              onClick={() => setShowAddProjectFile(false)}
+            >
+              Cancel
+            </Button>
+            <Button
+              onClick={() => {
+                setShowAddProjectFile(false);
+                addProjectFile(title);
+              }}
+              className="mt-6 w-1/2"
+              disabled={!title}
+            >
+              Add file
+            </Button>
+          </div>
+        </form>
       </Modal>
     </>
   );

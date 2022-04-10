@@ -4,10 +4,7 @@ import {
   ELEMENT_DEFAULT,
   ELEMENT_H1,
   ELEMENT_H2,
-  ELEMENT_H3,
   ELEMENT_HR,
-  getPluginType,
-  insertEmptyCodeBlock,
   insertNodes,
   PlateEditor,
   setNodes,
@@ -65,42 +62,5 @@ export const autoformatRules: AutoformatRule[] = [
     mode: "mark",
     type: MARK_ITALIC,
     match: "*",
-  },
-  {
-    mode: "mark",
-    type: MARK_ITALIC,
-    match: "_",
-  },
-  {
-    mode: "block",
-    type: ELEMENT_H1,
-    match: "# ",
-    insertTrigger: true,
-  },
-  {
-    mode: "block",
-    type: ELEMENT_H2,
-    match: "## ",
-    insertTrigger: true,
-  },
-  {
-    mode: "block",
-    type: ELEMENT_CODE_BLOCK,
-    match: "= ",
-    insertTrigger: true,
-  },
-
-  {
-    mode: "block",
-    type: ELEMENT_HR,
-    match: ["---", "—-"],
-    insertTrigger: true,
-    format: (editor) => {
-      setNodes(editor, { type: ELEMENT_HR });
-      insertNodes(editor, {
-        type: ELEMENT_DEFAULT,
-        children: [{ text: "" }],
-      });
-    },
   },
 ];

@@ -12,12 +12,9 @@ export const useChapters = () => {
       }
 
       try {
-        const files = await Neutralino.filesystem.readDirectory(
+        const chapterFiles = await Electron.filesystem.readDirectory(
           root + "/chapters"
         );
-        const chapterFiles = files
-          .filter((f) => f.type !== "DIRECTORY")
-          .map((f) => f.entry);
         const missingChapters = chapterFiles.filter(
           (f) => !main.chapters?.some((c) => c === f)
         );
@@ -32,7 +29,7 @@ export const useChapters = () => {
         return [...(main.chapters || []), ...missingChapters];
       } catch (e: any) {
         if (e.code === "NE_FS_NOPATHE") {
-          Neutralino.filesystem.createDirectory(root + "/chapters");
+          Electron.filesystem.createDirectory(root + "/chapters");
         }
 
         return [];
@@ -42,7 +39,7 @@ export const useChapters = () => {
 
   const addChapter = async (title: string) => {
     root + "/chapters/" + title + ".md";
-    await Neutralino.filesystem.writeFile(
+    await Electron.filesystem.writeFile(
       root + "/chapters/" + title + ".md",
       "# " + title + "\n "
     );
