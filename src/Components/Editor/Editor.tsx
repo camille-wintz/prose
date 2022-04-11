@@ -52,6 +52,15 @@ export const Editor = ({
       editor.insertText(lastQuote > lastClosingQuote ? "”" : "“");
     }
 
+    if (
+      e.code === "Equal" &&
+      text[editor.selection.anchor.offset - 1] === "-"
+    ) {
+      e.preventDefault();
+      editor.deleteBackward("character");
+      editor.insertText("—");
+    }
+
     if (e.code === "KeyS" && (e.ctrlKey || e.metaKey)) {
       if (!currentValue.current) {
         return;

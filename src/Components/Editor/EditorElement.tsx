@@ -16,6 +16,24 @@ export const EditorElement = ({ element, attributes, children }: any) => {
           {children}
         </div>
       );
+    case "scene":
+      return (
+        <div className="scene" {...attributes}>
+          {children}
+        </div>
+      );
+    case "end":
+      return (
+        <div className="end" {...attributes}>
+          {children}
+        </div>
+      );
+    case "todo":
+      return (
+        <div className="todo" {...attributes}>
+          {children}
+        </div>
+      );
     default:
       return <p {...attributes}>{children}</p>;
   }

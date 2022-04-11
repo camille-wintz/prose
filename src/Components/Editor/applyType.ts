@@ -21,6 +21,7 @@ export const commandTypes = {
   "@Todo": "todo",
   "@Include": "include",
   "@Note": "note",
+  "@End": "end",
 };
 
 const types = {
