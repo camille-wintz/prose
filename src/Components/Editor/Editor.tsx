@@ -47,8 +47,12 @@ export const Editor = ({
     if (e.key === '"') {
       e.preventDefault();
 
-      const lastQuote = text.lastIndexOf("“");
-      const lastClosingQuote = text.lastIndexOf("”");
+      const lastQuote = text
+        .substring(0, editor.selection.anchor.offset - 1)
+        .lastIndexOf("“");
+      const lastClosingQuote = text
+        .substring(0, editor.selection.anchor.offset - 1)
+        .lastIndexOf("”");
       editor.insertText(lastQuote > lastClosingQuote ? "”" : "“");
     }
 
