@@ -91,7 +91,20 @@ export const Editor = ({
       const desc: Descendant[] = blocks.map((b) => getTextNode(b));
 
       setInitialValue(() => desc);
-      setTimeout(() => setRefresh(true), 500);
+      setTimeout(() => {
+        const newCommands = editor.children.filter(
+          (c) =>
+            !isCustomText(c) &&
+            c.type &&
+            Object.values(commandTypes).includes(c.type)
+        );
+
+        setRefresh(true);
+        client.setQueryData(
+          ["getEditorCommands", currentFile?.path],
+          newCommands
+        );
+      }, 250);
     }
   }, [value]);
 
