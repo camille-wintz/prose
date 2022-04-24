@@ -5,6 +5,8 @@ import { Editor } from "../Editor/Editor";
 import { Nav } from "./Nav";
 import "../../Styles/Nav.scss";
 import { FileNavigation } from "../File/FileNavigation";
+import { Search } from "./IconsNav/Search";
+import { IconsNav } from "./IconsNav";
 
 export const Project = () => {
   const { main } = useProject();
@@ -46,6 +48,7 @@ export const Project = () => {
       ) : showFile ? (
         <div className="grow flex overflow-auto justify-center h-full bg-dark2"></div>
       ) : null}
+      {currentFile || showFile ? <IconsNav /> : null}
     </>
   );
 };

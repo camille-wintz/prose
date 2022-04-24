@@ -13,7 +13,9 @@ const files = (mainWindow) => {
 
   ipcMain.handle("filesystem:readDirectory", async (event, path) => {
     const files = await fs.readdir(path, { withFileTypes: true });
-    return files.filter((item) => !item.isDirectory()).map((item) => item.name);
+    return files
+      .filter((item) => !item.isDirectory() && item.name !== ".DS_Store")
+      .map((item) => item.name);
   });
 
   ipcMain.handle("filesystem:createDirectory", async (event, arg) => {

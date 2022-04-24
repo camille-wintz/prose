@@ -121,7 +121,7 @@ export const ProjectFiles = ({ className }: { className?: string }) => {
             label="Name"
             value={title}
             type="text"
-            onChange={(value) => setTitle(value)}
+            onTextChange={(value) => setTitle(value)}
           />
           <div className="flex gap-4 justify-center mt-6">
             <Button

@@ -23,7 +23,11 @@ function App() {
     <QueryClientProvider client={client}>
       <CurrentFileContext.Provider value={{ currentFile, setCurrentFile }}>
         <ProjectContext.Provider value={{ root, setRoot }}>
-          <div className="flex h-screen w-screen items-center justify-center bg-dark1">
+          <div
+            className={`flex h-screen w-screen ${
+              root ? "items-start" : "items-center"
+            } justify-center bg-dark1`}
+          >
             {!root ? <OpenProject /> : <Project />}
           </div>
         </ProjectContext.Provider>

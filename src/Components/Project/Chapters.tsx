@@ -74,7 +74,7 @@ export const Chapters = ({ className }: { className?: string }) => {
                       <FaBars
                         className={
                           currentFile?.path === root + "/chapters/" + c
-                            ? "text-label mr-2 text-brightBlue"
+                            ? "text-label mr-2 text-brightOrange"
                             : "text-label mr-2"
                         }
                       />
@@ -106,7 +106,7 @@ export const Chapters = ({ className }: { className?: string }) => {
           label="Title"
           value={title}
           type="text"
-          onChange={(value) => setTitle(value)}
+          onTextChange={(value) => setTitle(value)}
         />
         <div className="flex gap-4 justify-center mt-6">
           <Button

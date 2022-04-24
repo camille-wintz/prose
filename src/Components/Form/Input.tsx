@@ -1,15 +1,14 @@
-import React, { useContext, useState } from "react";
+import React, { InputHTMLAttributes, useContext, useState } from "react";
 
 export const Input = ({
-  type,
-  onChange,
+  onTextChange,
   value,
   className,
   label,
-}: {
-  type: string;
+  ...rest
+}: InputHTMLAttributes<HTMLInputElement> & {
   value: string;
-  onChange: (val: string) => void;
+  onTextChange: (val: string) => void;
   className?: string;
   label: string;
 }) => {
@@ -19,10 +18,10 @@ export const Input = ({
         <div className="input-text-label text-lg">{label}</div>
       </div>
       <input
+        {...rest}
         value={value}
-        type={type}
         className="input-text w-full"
-        onChange={(e) => onChange(e.target.value)}
+        onChange={(e) => onTextChange(e.target.value)}
       />
     </>
   );
