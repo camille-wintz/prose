@@ -2,7 +2,7 @@ module.exports = {
   content: ["./src/**/*.{js,jsx,tsx}"],
   theme: {
     transitionDuration: {
-      DEFAULT: "500ms",
+      DEFAULT: "350ms",
     },
     extend: {
       width: {
@@ -18,26 +18,14 @@ module.exports = {
       },
     },
     colors: {
-      transparent: "transparent",
-      dark0: "#0f1a23",
-      dark1: "#182b3a",
-      dark2: "#1f3a4f",
-      purple: "#34083C",
-      brightPurple: "#77038d",
-      lightPurple: "#ca48e5",
-      brightBlue: "#0a62a2",
-      brightOrange: "#a2680a",
-      brightGreen: "#627e04",
-      brightRed: "#8d2d03",
-      blue: "#0E3953",
-      white: "#dee5ec",
-      iconwhite: "#dee5ec",
-      label: "#a4b1bc",
+      white: "#F8F8F8",
+      black: "#121212",
+      blue: "#1253CD",
     },
     fontFamily: {
-      display: ["Averia Serif Libre"],
+      display: ["Astonia"],
       sans: ["Assistant"],
-      serif: ["Merriweather"],
+      serif: ["Charter"],
     },
   },
   plugins: [],

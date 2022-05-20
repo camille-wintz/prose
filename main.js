@@ -7,13 +7,13 @@ const createWindow = () => {
   const mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
-    titleBarStyle: "hidden",
+    titleBarStyle: "default",
     titleBarOverlay: true,
     webPreferences: {
       preload: path.join(__dirname, "preload.js"),
     },
     icon: __dirname + "/assets/icons/appIcon.png",
-    backgroundColor: "#181a1c",
+    backgroundColor: "#F8F8F8",
   });
 
   if (process.platform === "darwin") {

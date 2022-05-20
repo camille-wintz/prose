@@ -26,6 +26,8 @@ export const Editor = ({
   const { commands } = useEditorCommands();
   const client = useQueryClient();
 
+  console.log(editor);
+
   const editorPlugins = [...plugins.basicNodes, createPreviewPlugin()];
 
   const onKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
@@ -92,6 +94,7 @@ export const Editor = ({
 
       setInitialValue(() => desc);
       setTimeout(() => {
+        console.log(editor);
         const newCommands = editor.children.filter(
           (c) =>
             !isCustomText(c) &&
@@ -112,7 +115,6 @@ export const Editor = ({
     <div className={`${className}`} id="current-file-editor">
       <Plate
         id="CurrentFile"
-        editor={editor}
         plugins={editorPlugins}
         initialValue={initialValue}
         onChange={(newValue) => {

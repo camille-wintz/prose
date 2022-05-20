@@ -57,11 +57,15 @@ export const ProjectFiles = ({ className }: { className?: string }) => {
 
   return (
     <>
-      <NavHeader className="mt-6">Files</NavHeader>
+      <NavHeader>Files</NavHeader>
       <DragDropContext onDragEnd={(e) => onDragEnd(e)}>
         <Droppable droppableId="droppable">
           {(provided, snapshot) => (
-            <div {...provided.droppableProps} ref={provided.innerRef}>
+            <div
+              {...provided.droppableProps}
+              ref={provided.innerRef}
+              className="flex flex-col items-end"
+            >
               {projectFiles.map((c, i) => (
                 <Draggable key={c} draggableId={c} index={i}>
                   {(provided, snapshot) => (
@@ -70,15 +74,8 @@ export const ProjectFiles = ({ className }: { className?: string }) => {
                       {...provided.draggableProps}
                       {...provided.dragHandleProps}
                       style={provided.draggableProps.style}
-                      className={`w-full flex items-center py-2 navLine`}
+                      className={`w-full flex items-center justify-end py-2 navLine`}
                     >
-                      <FaBars
-                        className={
-                          currentFile?.path === root + "/" + c
-                            ? "text-label mr-2 text-brightBlue"
-                            : "text-label mr-2"
-                        }
-                      />
                       <NavLink
                         className={
                           currentFile?.path === root + "/" + c
@@ -90,6 +87,13 @@ export const ProjectFiles = ({ className }: { className?: string }) => {
                       >
                         {c.split(".md")[0]}
                       </NavLink>
+                      <FaBars
+                        className={
+                          currentFile?.path === root + "/" + c
+                            ? "text-label ml-2 text-brightBlue"
+                            : "text-label ml-2"
+                        }
+                      />
                     </div>
                   )}
                 </Draggable>

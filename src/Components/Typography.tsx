@@ -10,7 +10,7 @@ export const Title = ({
   style?: any;
 }) => {
   return (
-    <h1 style={style} className={`text-white font-display ${className}`}>
+    <h1 style={style} className={`font-display ${className}`}>
       {children}
     </h1>
   );
@@ -38,5 +38,7 @@ export const Divider = ({
   className?: string;
   style?: any;
 }) => (
-  <hr className={`border-0 h-2 w-full rounded-md mt-4 mb-4 ${className}`} />
+  <hr
+    className={`border-0 h-1 w-full rounded-md mt-4 mb-4 shrink-0 ${className}`}
+  />
 );

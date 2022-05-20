@@ -1,6 +1,28 @@
 @import url("https://fonts.googleapis.com/css2?family=Assistant:wght@300;600&family=Averia+Serif+Libre:ital,wght@0,300;0,700;1,300&family=Merriweather:ital,wght@0,300;0,700;1,300&display=swap");
 @import url("//hello.myfonts.net/count/42df7c");
 
+@font-face {
+  font-family: Charter;
+  src: url("/Charter/Charter Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: Charter;
+  src: url("/Charter/Charter Bold.ttf") format("truetype");
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: Charter;
+  src: url("/Charter/Charter Italic.ttf") format("truetype");
+  font-style: italic;
+}
+
+@font-face {
+  font-family: Astonia;
+  src: url("/Astonia.otf");
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -12,6 +34,8 @@ body,
 #root {
   min-height: 100%;
   position: relative;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
 }
 
 @import "./Styles/Input.scss";

@@ -1,30 +1,20 @@
 [contenteditable] {
-  font-family: "Merriweather";
+  font-family: "Charter";
   margin: auto;
   max-width: 830px;
-  color: $white;
   padding-top: 80px;
   padding-bottom: 80px;
 
   h1 {
     margin-left: 1.1rem;
     margin-right: 1.1rem;
+    margin-bottom: 4rem;
     font-size: 3.5rem;
-    color: #fff;
-    &::after {
-      content: " ";
-      display: block;
-      background-image: linear-gradient(146deg, $brightBlue, $brightPurple);
-      height: 8px;
-      border-radius: 3px;
-      margin-top: 2rem;
-      margin-bottom: 4rem;
-    }
   }
 
   h1,
   h2 {
-    font-family: "Averia Serif Libre";
+    font-family: "Astonia";
     margin-top: 3rem;
   }
 
@@ -35,18 +25,11 @@
   p,
   div,
   blockquote {
-    text-align: justify;
-    hyphens: auto;
-    text-indent: 4rem;
-    font-size: 1.2rem;
-    letter-spacing: 1px;
-    line-height: 2.5rem;
+    font-size: 24px;
+    line-height: 48px;
     margin: 1.1rem;
     transition: all 500ms ease;
-  }
-
-  p:hover {
-    color: #fff;
+    margin-bottom: 2.5rem;
   }
 
   blockquote {
@@ -71,13 +54,5 @@
   div.todo {
     font-weight: bold;
     color: #219eff;
-  }
-
-  h1,
-  h2,
-  h3,
-  h4,
-  h5 {
-    text-align: center;
   }
 }

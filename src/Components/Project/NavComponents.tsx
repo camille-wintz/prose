@@ -22,7 +22,7 @@ export const NavLink = ({
 
 export const NavHeader = ({
   children,
-  className = "mt-5",
+  className = "",
 }: {
   children: ReactNode;
   className?: string;

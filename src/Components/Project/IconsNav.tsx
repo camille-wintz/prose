@@ -33,7 +33,7 @@ export const IconsNav = () => {
   return (
     <div className="relative">
       <div
-        className="bg-dark0 absolute shadow transition-all w-52 p-6"
+        className="absolute shadow transition-all w-52 p-6"
         style={{
           opacity: opened === -1 ? 0 : 1,
           right: opened === -1 ? 0 : "100%",

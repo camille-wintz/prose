@@ -3,9 +3,7 @@ import { useCurrentFile } from "../../Hooks/useCurrentFile";
 import { useProject } from "../../Hooks/useProject";
 import { Editor } from "../Editor/Editor";
 import { Nav } from "./Nav";
-import "../../Styles/Nav.scss";
 import { FileNavigation } from "../File/FileNavigation";
-import { Search } from "./IconsNav/Search";
 import { IconsNav } from "./IconsNav";
 
 export const Project = () => {
@@ -25,13 +23,11 @@ export const Project = () => {
 
   return (
     <>
-      <div
-        className={`h-full w-250 ${showFile ? "flex p-8" : "justify-center"}`}
-      >
-        <Nav className={showFile ? "navLeft" : "navCenter"} />
+      <div className={`h-full w-250`}>
+        <Nav />
       </div>
       {currentFile ? (
-        <div className="bg-dark2 grow h-full flex">
+        <div className="bg-white grow h-full flex">
           <FileNavigation className="ml-6" />
           <div className="flex grow overflow-auto justify-center h-full">
             <Editor
@@ -46,7 +42,7 @@ export const Project = () => {
           </div>
         </div>
       ) : showFile ? (
-        <div className="grow flex overflow-auto justify-center h-full bg-dark2"></div>
+        <div className="grow flex overflow-auto justify-center h-full bg-white"></div>
       ) : null}
       {currentFile || showFile ? <IconsNav /> : null}
     </>
