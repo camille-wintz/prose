@@ -1,10 +1,16 @@
 import { useQuery, useQueryClient } from "react-query";
 import { useProject } from "./useProject";
 
+export interface Chapter {
+  path: string;
+  content: string;
+  excerpt: string;
+}
+
 export const useChapters = () => {
   const { root, main, saveMain } = useProject();
   const client = useQueryClient();
-  const { data, status } = useQuery<string[]>(
+  const { data, status } = useQuery<Chapter[]>(
     ["getChapters", root],
     async () => {
       if (!main) {
@@ -26,7 +32,23 @@ export const useChapters = () => {
           });
         }
 
-        return [...(main.chapters || []), ...missingChapters];
+        const chapters = [...(main.chapters || []), ...missingChapters];
+        const result = [];
+        for (let chapter of chapters) {
+          const content = await Electron.filesystem.readFile(
+            root + "/chapters/" + chapter
+          );
+          result.push({
+            path: chapter,
+            content,
+            excerpt:
+              content.split(". ")[
+                Math.floor(Math.random() * content.split(". ").length - 1)
+              ],
+          });
+        }
+
+        return result;
       } catch (e: any) {
         if (e.code === "NE_FS_NOPATHE") {
           Electron.filesystem.createDirectory(root + "/chapters");
@@ -43,9 +65,13 @@ export const useChapters = () => {
       root + "/chapters/" + title + ".md",
       "# " + title + "\n "
     );
-    client.setQueryData<string[]>(["getChapters", root], (chapters) => [
+    client.setQueryData<Chapter[]>(["getChapters", root], (chapters) => [
       ...(chapters || []),
-      title + ".md",
+      {
+        path: title + ".md",
+        content: "# " + title + "\n ",
+        excerpt: "Start writing...",
+      },
     ]);
   };
 

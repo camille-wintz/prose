@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="110.829" height="103.371" viewBox="0 0 110.829 103.371">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.5" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#404cff"/>
+      <stop offset="1" stop-color="#a70bc6"/>
+    </linearGradient>
+    <filter id="noun-book-4638040" x="0" y="0" width="110.829" height="103.371" filterUnits="userSpaceOnUse">
+      <feOffset input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="1.5" result="blur"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g transform="matrix(1, 0, 0, 1, 0, 0)" filter="url(#noun-book-4638040)">
+    <path id="noun-book-4638040-2" data-name="noun-book-4638040" d="M146.113,159.92c-15.308,0-34.1,1-44.027,7.508,5.091-7.628,20.935-13.358,39.092-13.358a2.589,2.589,0,0,0,2.589-2.589V89.97a2.589,2.589,0,0,0-2.589-2.589c-20.314,0-37.159,6.472-43.389,15.723C91.558,93.853,74.713,87.381,54.4,87.381A2.589,2.589,0,0,0,51.81,89.97v61.511A2.589,2.589,0,0,0,54.4,154.07c18.156,0,34,5.73,39.092,13.358-9.924-6.507-28.719-7.508-44.027-7.508a2.589,2.589,0,0,0,0,5.178c30.341,0,45.737,4.729,45.737,14.066a2.589,2.589,0,0,0,5.178,0c0-9.337,15.395-14.066,45.737-14.066a2.589,2.589,0,0,0,0-5.178Z" transform="translate(-42.37 -82.88)" fill="url(#linear-gradient)"/>
+  </g>
+</svg>

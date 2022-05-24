@@ -19,12 +19,14 @@ module.exports = {
     },
     colors: {
       white: "#F8F8F8",
-      black: "#121212",
+      black: "#1D1D1D",
       blue: "#1253CD",
+      yellow: "#FFA934",
+      black2: "#2D304E",
     },
     fontFamily: {
       display: ["Astonia"],
-      sans: ["Assistant"],
+      sans: ["Open Sans"],
       serif: ["Charter"],
     },
   },

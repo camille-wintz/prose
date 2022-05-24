@@ -5,9 +5,8 @@ import {
   Draggable,
   DropResult,
 } from "react-beautiful-dnd";
-import { FaBars } from "react-icons/fa";
+import { MdDragHandle } from "react-icons/md";
 import { useQueryClient } from "react-query";
-import { useChapters } from "../../Hooks/useChapters";
 import { useCurrentFile } from "../../Hooks/useCurrentFile";
 import { useProject } from "../../Hooks/useProject";
 import { useProjectFiles } from "../../Hooks/useProjectFiles";
@@ -57,14 +56,14 @@ export const ProjectFiles = ({ className }: { className?: string }) => {
 
   return (
     <>
-      <NavHeader>Files</NavHeader>
+      <NavHeader className="px-6 mb-4">Files</NavHeader>
       <DragDropContext onDragEnd={(e) => onDragEnd(e)}>
         <Droppable droppableId="droppable">
           {(provided, snapshot) => (
             <div
               {...provided.droppableProps}
               ref={provided.innerRef}
-              className="flex flex-col items-end"
+              className="flex flex-col"
             >
               {projectFiles.map((c, i) => (
                 <Draggable key={c} draggableId={c} index={i}>
@@ -74,25 +73,17 @@ export const ProjectFiles = ({ className }: { className?: string }) => {
                       {...provided.draggableProps}
                       {...provided.dragHandleProps}
                       style={provided.draggableProps.style}
-                      className={`w-full flex items-center justify-end py-2 navLine`}
+                      className={`w-full flex items-center justify-between py-2 px-6 navLine group border-b border-black2 border-solid last:border-b-0`}
                     >
                       <NavLink
-                        className={
-                          currentFile?.path === root + "/" + c
-                            ? "text-white"
-                            : "text-label"
-                        }
+                        className="mr-6"
                         key={c}
                         onClick={() => openFile("/" + c)}
                       >
                         {c.split(".md")[0]}
                       </NavLink>
-                      <FaBars
-                        className={
-                          currentFile?.path === root + "/" + c
-                            ? "text-label ml-2 text-brightBlue"
-                            : "text-label ml-2"
-                        }
+                      <MdDragHandle
+                        className={`ml-2 text-yellow group-hover:opacity-100 opacity-0 transition-all h-8 w-8`}
                       />
                     </div>
                   )}
@@ -109,9 +100,7 @@ export const ProjectFiles = ({ className }: { className?: string }) => {
           setShowAddProjectFile(true);
         }}
         className="pt-2"
-      >
-        Add file
-      </Add>
+      ></Add>
       <Modal title="New file" show={showAddProjectFile}>
         <form
           onSubmit={(e) => {

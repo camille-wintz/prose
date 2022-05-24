@@ -13,7 +13,7 @@ export const NavLink = ({
   return (
     <button
       onClick={onClick}
-      className={`hover:text-white transition-all flex ${className}`}
+      className={`hover:text-white font-thin text-sm transition-all flex ${className}`}
     >
       {children}
     </button>
@@ -27,25 +27,20 @@ export const NavHeader = ({
   children: ReactNode;
   className?: string;
 }) => (
-  <h3 className={`text-white font-bold text-lg mb-2 ${className}`}>
-    {children}
-  </h3>
+  <h3 className={`text-white font-bold text-lg ${className}`}>{children}</h3>
 );
 
 export const Add = ({
-  children,
   onClick,
   className,
 }: {
   onClick: () => void;
-  children: ReactNode;
   className?: string;
 }) => (
   <div
-    className={`flex mb-2 text-label hover:text-white transition-all navLine ${className}`}
+    className={`flex mb-2 mt-8 text-label hover:text-white transition-all justify-center items-center ${className}`}
     onClick={onClick}
   >
-    <FaPlusCircle className="mr-2" />
-    <button>{children}</button>
+    <FaPlusCircle className="mr-2 text-yellow h-8 w-8" />
   </div>
 );

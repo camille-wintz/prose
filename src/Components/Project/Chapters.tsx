@@ -6,8 +6,9 @@ import {
   DropResult,
 } from "react-beautiful-dnd";
 import { FaBars } from "react-icons/fa";
+import { MdDragHandle } from "react-icons/md";
 import { useQueryClient } from "react-query";
-import { useChapters } from "../../Hooks/useChapters";
+import { Chapter, useChapters } from "../../Hooks/useChapters";
 import { useCurrentFile } from "../../Hooks/useCurrentFile";
 import { useProject } from "../../Hooks/useProject";
 import { Button } from "../Form/Button";
@@ -19,11 +20,11 @@ export const Chapters = ({ className }: { className?: string }) => {
   const client = useQueryClient();
   const [showAddChapter, setShowAddChapter] = useState(false);
   const { chapters, addChapter } = useChapters();
-  const { openFile, currentFile } = useCurrentFile();
+  const { openFile } = useCurrentFile();
   const { main, saveMain, root } = useProject();
   const [title, setTitle] = useState("");
 
-  const reorder = (list: string[], startIndex: number, endIndex: number) => {
+  const reorder = (list: Chapter[], startIndex: number, endIndex: number) => {
     const result = Array.from(list);
     const [removed] = result.splice(startIndex, 1);
     result.splice(endIndex, 0, removed);
@@ -42,11 +43,11 @@ export const Chapters = ({ className }: { className?: string }) => {
       result.destination.index
     );
 
-    client.setQueryData<string[]>(["getChapters", root], items);
+    client.setQueryData<Chapter[]>(["getChapters", root], items);
 
     saveMain({
       ...main,
-      chapters: items,
+      chapters: items.map((i) => i.path),
     });
   };
 
@@ -56,39 +57,34 @@ export const Chapters = ({ className }: { className?: string }) => {
 
   return (
     <>
-      <NavHeader className="">Chapters</NavHeader>
       <DragDropContext onDragEnd={(e) => onDragEnd(e)}>
         <Droppable droppableId="droppable">
           {(provided, snapshot) => (
             <div {...provided.droppableProps} ref={provided.innerRef}>
               {chapters.map((c, i) => (
-                <Draggable key={c} draggableId={c} index={i}>
+                <Draggable key={c.path} draggableId={c.path} index={i}>
                   {(provided, snapshot) => (
                     <div
                       ref={provided.innerRef}
                       {...provided.draggableProps}
                       {...provided.dragHandleProps}
                       style={provided.draggableProps.style}
-                      className={`w-full flex items-center py-2 navLine`}
+                      className={`w-full flex flex-col py-2 group first:pt-0`}
                     >
-                      <FaBars
-                        className={
-                          currentFile?.path === root + "/chapters/" + c
-                            ? "text-label mr-2 text-brightOrange"
-                            : "text-label mr-2"
-                        }
-                      />
-                      <NavLink
-                        className={
-                          currentFile?.path === root + "/chapters/" + c
-                            ? "text-white"
-                            : "text-label"
-                        }
-                        key={c}
-                        onClick={() => openFile("/chapters/" + c)}
+                      <div
+                        className="font-bold flex items-center"
+                        key={c.path}
+                        onClick={() => openFile("/chapters/" + c.path)}
                       >
-                        {c.split(".md")[0]}
-                      </NavLink>
+                        <div className="cursor-pointer">
+                          {c.path.split(".md")[0]}
+                        </div>
+
+                        <MdDragHandle className="text-yellow h-8 w-8 ml-2 opacity-0 transition-all group-hover:opacity-100" />
+                      </div>
+                      <div className="font-thin max-w-[720px]">
+                        {c.excerpt}.
+                      </div>
                     </div>
                   )}
                 </Draggable>
@@ -98,9 +94,10 @@ export const Chapters = ({ className }: { className?: string }) => {
           )}
         </Droppable>
       </DragDropContext>
-      <Add onClick={() => setShowAddChapter(true)} className="pt-2">
-        Add chapter
-      </Add>
+      <Add
+        onClick={() => setShowAddChapter(true)}
+        className="pt-2 justify-center m-auto mt-6"
+      ></Add>
       <Modal title="New chapter" show={showAddChapter}>
         <Input
           label="Title"

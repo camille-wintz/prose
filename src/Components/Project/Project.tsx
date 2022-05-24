@@ -1,15 +1,16 @@
 import { useEffect, useState } from "react";
+import Book from "../../Assets/Book.svg";
 import { useCurrentFile } from "../../Hooks/useCurrentFile";
 import { useProject } from "../../Hooks/useProject";
 import { Editor } from "../Editor/Editor";
-import { Nav } from "./Nav";
 import { FileNavigation } from "../File/FileNavigation";
-import { IconsNav } from "./IconsNav";
+import { Nav } from "./Nav";
 
 export const Project = () => {
   const { main } = useProject();
   const { currentFile, saveFile } = useCurrentFile();
   const [showFile, setShowFile] = useState(false);
+  const [showNav, setShowNav] = useState(false);
 
   useEffect(() => {
     if (currentFile) {
@@ -22,13 +23,14 @@ export const Project = () => {
   }
 
   return (
-    <>
-      <div className={`h-full w-250`}>
-        <Nav />
-      </div>
+    <div
+      className={`${
+        currentFile || showFile ? "bg-white" : "bg-black"
+      } grow h-full flex`}
+    >
+      <FileNavigation className="ml-6" />
       {currentFile ? (
-        <div className="bg-white grow h-full flex">
-          <FileNavigation className="ml-6" />
+        <>
           <div className="flex grow overflow-auto justify-center h-full">
             <Editor
               value={currentFile.content}
@@ -40,11 +42,18 @@ export const Project = () => {
           <div className="text-label fixed right-8 bottom-6">
             {currentFile.wordCount} words
           </div>
-        </div>
-      ) : showFile ? (
-        <div className="grow flex overflow-auto justify-center h-full bg-white"></div>
+        </>
       ) : null}
-      {currentFile || showFile ? <IconsNav /> : null}
-    </>
+      <div
+        className={`h-full transition-all ${
+          !currentFile ? "bg-black w-full items-center" : "w-24"
+        } flex p-6 justify-center`}
+      >
+        <button onClick={() => setShowNav(true)} className="flex">
+          <img src={Book} />
+        </button>
+      </div>
+      <Nav onDismiss={() => setShowNav(false)} visible={showNav} />
+    </div>
   );
 };

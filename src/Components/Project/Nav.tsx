@@ -6,71 +6,69 @@ import { useEffect, useState } from "react";
 import { FaAlignLeft, FaList } from "react-icons/fa";
 import { useCurrentFile } from "../../Hooks/useCurrentFile";
 
-export const Nav = ({ className }: { className?: string }) => {
+export const Nav = ({
+  className,
+  visible,
+  onDismiss,
+}: {
+  className?: string;
+  visible: boolean;
+  onDismiss: () => void;
+}) => {
   const { currentFile } = useCurrentFile();
-  const [isOpen, setIsOpen] = useState(!currentFile);
   const { main } = useProject();
 
   useEffect(() => {
     if (currentFile) {
-      setIsOpen(false);
+      onDismiss();
     }
   }, [currentFile]);
 
   return (
-    <div
-      className={`transition-all absolute left-0 top-0 p-24 z-10 overflow-auto h-full w-full text-white ${
-        isOpen
-          ? "dark-blue-to-purple pointer-events-auto"
-          : "bg-transparent pointer-events-none"
-      }`}
-    >
-      <FaAlignLeft
-        className={`h-8 w-8 top-8 left-8 fixed cursor-pointer pointer-events-auto ${
-          isOpen ? "text-white" : "text-black"
-        }`}
-        onClick={() => setIsOpen(!isOpen)}
-      />
+    <>
       <div
-        className={`transition-all bg-black rounded-lg p-8 shadow-xl relative ${
-          isOpen ? "opacity-100 mt-0" : "opacity-0 -mt-24"
-        } h-full w-full justify-between flex`}
+        className={`transition-all absolute left-0 top-0 z-10 h-full w-full flex dark-blue-to-purple ${
+          visible
+            ? "opacity-95 pointer-events-auto"
+            : "opacity-0 pointer-events-none"
+        }`}
+      ></div>
+      <div
+        onClick={onDismiss}
+        className={`py-40 px-40 w-full h-full items-center transition-all z-20  ${
+          visible
+            ? "opacity-100 top-0 pointer-events-auto"
+            : "opacity-0 -top-24 pointer-events-none"
+        } justify-center items-stretch flex flex-col fixed`}
       >
-        <div className={`flex flex-col items-start overflow-auto w-full`}>
-          <div className="relative">
-            <Title
-              className={`text-3xl mb-2 ${
-                className === "items-center" ? "text-center" : ""
-              }`}
-            >
-              Storms over Daggers
-            </Title>
-            <Subtitle className="text-xl">
-              {(main?.wordCount || 0) > 1000
-                ? Math.round((main?.wordCount || 0) / 1000) + "k"
-                : main?.wordCount}{" "}
-              words
-            </Subtitle>
-            <Divider className="bright-blue-to-purple" />
-          </div>
-
-          <Chapters className={className} />
+        <div>
+          <Title
+            className={`text-4xl text-yellow grow mb-1 ${
+              className === "items-center" ? "text-center" : ""
+            }`}
+          >
+            Storms over Daggers
+          </Title>
+          <Subtitle className="text-white text-xl mb-6">
+            {(main?.wordCount || 0) > 1000
+              ? Math.round((main?.wordCount || 0) / 1000) + "k"
+              : main?.wordCount}{" "}
+            words
+          </Subtitle>
         </div>
-        <div className="flex flex-col items-end absolute right-8">
-          <div>
-            <Title
-              className={`text-2xl ${
-                className === "items-center" ? "text-center" : ""
-              }`}
+        <div className="flex w-full overflow-auto">
+          <div className="bg-black text-white grow rounded-lg p-8 shadow-xl relative overflow-auto mr-6">
+            <div
+              className={`flex flex-col items-start overflow-auto w-full h-full`}
             >
-              Tools
-            </Title>
-            <Divider className="bright-blue-to-purple" />
+              <Chapters className={className} />
+            </div>
           </div>
-
-          <ProjectFiles className={className} />
+          <div className="bg-black text-white rounded-lg py-8 shadow-xl relative overflow-auto mr-6">
+            <ProjectFiles className={className} />
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
