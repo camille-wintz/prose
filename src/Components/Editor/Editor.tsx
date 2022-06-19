@@ -1,13 +1,32 @@
-import React, { useEffect, useRef, useState } from "react";
-import { Descendant, Transforms } from "slate";
-import { Plate, usePlateEditorRef } from "@udecode/plate";
-import { createPreviewPlugin } from "./createPreviewPlugin";
-import { plugins } from "./plugins";
-import { commandTypes, getTextNode, isCustomText } from "./applyType";
-import { EditorElement } from "./EditorElement";
+import { useRef, useState } from "react";
+import * as monaco from "monaco-editor";
 import { useEditorCommands } from "../../Hooks/useEditorCommands";
 import { useQueryClient } from "react-query";
 import { useCurrentFile } from "../../Hooks/useCurrentFile";
+import Worker from "monaco-editor/esm/vs/editor/editor.worker?worker";
+
+//@ts-ignore
+self.MonacoEnvironment = {
+  getWorker(_: string, label: string) {
+    return new Worker();
+  },
+};
+
+monaco.editor.defineTheme("Prose", {
+  base: "vs",
+  inherit: true,
+  rules: [{ background: "#2b274d", token: "#2b274d" }],
+  colors: {
+    "editor.foreground": "#e49321",
+    "editor.background": "#261b4a",
+    "editorCursor.foreground": "#8B0000",
+    "editor.lineHighlightBackground": "#0000FF20",
+    "editorLineNumber.foreground": "#a70bc6",
+    "editor.selectionBackground": "#88000030",
+    "editor.inactiveSelectionBackground": "#88000015",
+  },
+});
+monaco.editor.setTheme("Prose");
 
 export const Editor = ({
   onChange,
@@ -18,125 +37,42 @@ export const Editor = ({
   onChange: (v: string) => void;
   value: string;
 }) => {
+  const editor = useRef<monaco.editor.IStandaloneCodeEditor>();
   const { currentFile } = useCurrentFile();
-  const [, setRefresh] = useState(false);
-  const editor = usePlateEditorRef("CurrentFile");
-  const currentValue = useRef<Descendant[]>();
-  const [initialValue, setInitialValue] = useState<Descendant[]>();
-  const { commands } = useEditorCommands();
-  const client = useQueryClient();
 
-  console.log(editor);
-
-  const editorPlugins = [...plugins.basicNodes, createPreviewPlugin()];
-
-  const onKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
-    if (e.key === "'") {
-      e.preventDefault();
-      editor.insertText("’");
-      return;
-    }
-
-    if (!editor.selection) {
-      return;
-    }
-
-    const selected = editor.children[editor.selection.anchor.path[0]];
-    const text = isCustomText(selected)
-      ? selected.text
-      : selected.children[0].text;
-
-    if (e.key === '"') {
-      e.preventDefault();
-
-      const lastQuote = text
-        .substring(0, editor.selection.anchor.offset - 1)
-        .lastIndexOf("“");
-      const lastClosingQuote = text
-        .substring(0, editor.selection.anchor.offset - 1)
-        .lastIndexOf("”");
-      editor.insertText(lastQuote > lastClosingQuote ? "”" : "“");
-    }
-
-    if (
-      e.code === "Equal" &&
-      text[editor.selection.anchor.offset - 1] === "-"
-    ) {
-      e.preventDefault();
-      editor.deleteBackward("character");
-      editor.insertText("—");
-    }
-
+  const handleKey = (e: React.KeyboardEvent) => {
     if (e.code === "KeyS" && (e.ctrlKey || e.metaKey)) {
-      if (!currentValue.current) {
-        return;
-      }
       onChange(
-        currentValue.current
-          .map((d) => (isCustomText(d) ? d.text : d.children[0].text))
-          .join("\n")
+        editor.current
+          ?.getValue({ preserveBOM: false, lineEnding: "" })
+          ?.replaceAll("\n\n", "\n") || ""
       );
       return;
     }
-
-    if (selected && !isCustomText(selected)) {
-      const targetNode = getTextNode(text);
-      if (targetNode.type !== selected.type) {
-        Transforms.setNodes(editor, targetNode);
-      }
-    }
   };
 
-  useEffect(() => {
-    if (value !== undefined) {
-      const blocks = value.split("\n");
-      const desc: Descendant[] = blocks.map((b) => getTextNode(b));
-
-      setInitialValue(() => desc);
-      setTimeout(() => {
-        console.log(editor);
-        const newCommands = editor.children.filter(
-          (c) =>
-            !isCustomText(c) &&
-            c.type &&
-            Object.values(commandTypes).includes(c.type)
-        );
-
-        setRefresh(true);
-        client.setQueryData(
-          ["getEditorCommands", currentFile?.path],
-          newCommands
-        );
-      }, 250);
-    }
-  }, [value]);
-
   return (
-    <div className={`${className}`} id="current-file-editor">
-      <Plate
-        id="CurrentFile"
-        plugins={editorPlugins}
-        initialValue={initialValue}
-        onChange={(newValue) => {
-          currentValue.current = newValue;
-          const newCommands = editor.children.filter(
-            (c) =>
-              !isCustomText(c) &&
-              c.type &&
-              Object.values(commandTypes).includes(c.type)
-          );
-          if (newCommands.length !== commands?.length) {
-            client.setQueryData(
-              ["getEditorCommands", currentFile?.path],
-              newCommands
-            );
-          }
-        }}
-        editableProps={{
-          onKeyDown,
-          renderElement: (e) => <EditorElement {...e} />,
-        }}
-      />
-    </div>
+    <div
+      className={`${className} w-[680px] h-screen`}
+      id="current-file-editor"
+      onKeyDown={(e) => handleKey(e)}
+      ref={(r) => {
+        if (r && r.childNodes.length === 0) {
+          editor.current = monaco.editor.create(r, {
+            readOnly: false,
+            value: currentFile?.content.replace(/\n/g, "\n\n"),
+            fontSize: 16,
+            lineHeight: 26,
+            language: "markdown",
+            wordWrap: "on",
+            wordBasedSuggestions: false,
+            "semanticHighlighting.enabled": false,
+            occurrencesHighlight: false,
+            minimap: { enabled: false },
+            scrollbar: { vertical: "hidden", useShadows: false },
+          });
+        }
+      }}
+    ></div>
   );
 };

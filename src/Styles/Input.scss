@@ -3,13 +3,13 @@ input.input-text:-webkit-autofill,
 input.input-text:-webkit-autofill:hover,
 input.input-text:-webkit-autofill:focus {
   border-radius: 6px;
-  background-color: #1f2224 !important;
+  background-color: #272727 !important;
   padding: 8px;
   padding-left: 16px;
   padding-right: 16px;
   color: #b9b9b9 !important;
   -webkit-text-fill-color: #b9b9b9;
-  box-shadow: 0 0 0px 1000px $dark1 inset;
+  box-shadow: 0 0 0px 1000px #272727 inset;
   overflow: hidden;
   background-clip: text !important;
   font-size: 14px;

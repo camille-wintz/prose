@@ -1,4 +1,3 @@
-import { isCustomText } from "../Editor/applyType";
 import { useEditorCommands } from "../../Hooks/useEditorCommands";
 
 export const FileNavigation = ({ className = "" }) => {
@@ -25,24 +24,6 @@ export const FileNavigation = ({ className = "" }) => {
   };
 
   return (
-    <div className={`flex flex-col justify-center gap-4 ${className}`}>
-      {commands
-        ?.filter(
-          (c) =>
-            !isCustomText(c) && c.type && Object.keys(types).includes(c.type)
-        )
-        .map((n, i) => {
-          if (isCustomText(n) || !n.type) {
-            return null;
-          }
-          const color = types[n.type];
-          return (
-            <div
-              onClick={() => scrollToElement(i)}
-              className={`cursor-pointer hover:bg-iconwhite transition-all h-4 w-4 rounded-full ${color}`}
-            />
-          );
-        })}
-    </div>
+    <div className={`flex flex-col justify-center gap-4 ${className}`}></div>
   );
 };

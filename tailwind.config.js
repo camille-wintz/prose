@@ -2,7 +2,7 @@ module.exports = {
   content: ["./src/**/*.{js,jsx,tsx}"],
   theme: {
     transitionDuration: {
-      DEFAULT: "350ms",
+      DEFAULT: "500ms",
     },
     extend: {
       width: {
@@ -18,16 +18,17 @@ module.exports = {
       },
     },
     colors: {
+      dark: "#261b4a",
       white: "#F8F8F8",
       black: "#1D1D1D",
       blue: "#1253CD",
       yellow: "#FFA934",
-      black2: "#2D304E",
+      black2: "#272727",
     },
     fontFamily: {
-      display: ["Astonia"],
+      display: ["Averia Serif Libre"],
       sans: ["Open Sans"],
-      serif: ["Charter"],
+      serif: ["Source Code Pro"],
     },
   },
   plugins: [],

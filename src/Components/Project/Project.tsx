@@ -23,11 +23,7 @@ export const Project = () => {
   }
 
   return (
-    <div
-      className={`${
-        currentFile || showFile ? "bg-white" : "bg-black"
-      } grow h-full flex`}
-    >
+    <div className={`grow h-full flex`}>
       <FileNavigation className="ml-6" />
       {currentFile ? (
         <>
@@ -45,8 +41,8 @@ export const Project = () => {
         </>
       ) : null}
       <div
-        className={`h-full transition-all ${
-          !currentFile ? "bg-black w-full items-center" : "w-24"
+        className={`fixed right-0 top-0 h-screen transition-all ${
+          !currentFile && !showFile ? "w-full items-center" : "w-24"
         } flex p-6 justify-center`}
       >
         <button onClick={() => setShowNav(true)} className="flex">

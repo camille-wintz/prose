@@ -27,18 +27,18 @@ export const Nav = ({
   return (
     <>
       <div
-        className={`transition-all absolute left-0 top-0 z-10 h-full w-full flex dark-blue-to-purple ${
+        onClick={onDismiss}
+        className={`transition-all fixed left-0 top-0 z-10 h-full w-full flex dark-blue-to-purple ${
           visible
-            ? "opacity-95 pointer-events-auto"
+            ? "opacity-80 pointer-events-auto"
             : "opacity-0 pointer-events-none"
         }`}
       ></div>
       <div
-        onClick={onDismiss}
         className={`py-40 px-40 w-full h-full items-center transition-all z-20  ${
           visible
             ? "opacity-100 top-0 pointer-events-auto"
-            : "opacity-0 -top-24 pointer-events-none"
+            : "opacity-0 -top-64 pointer-events-none"
         } justify-center items-stretch flex flex-col fixed`}
       >
         <div>

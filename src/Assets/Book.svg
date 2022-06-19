@@ -1,10 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="110.829" height="103.371" viewBox="0 0 110.829 103.371">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="66.957" height="62.712" viewBox="0 0 66.957 62.712">
   <defs>
-    <linearGradient id="linear-gradient" x1="0.5" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
-      <stop offset="0" stop-color="#404cff"/>
+    <linearGradient id="linear-gradient" x1="0.5" y1="0.219" x2="0.5" y2="1.221" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#ffa934"/>
       <stop offset="1" stop-color="#a70bc6"/>
     </linearGradient>
-    <filter id="noun-book-4638040" x="0" y="0" width="110.829" height="103.371" filterUnits="userSpaceOnUse">
+    <filter id="noun-book-4638040" x="0" y="0" width="66.957" height="62.712" filterUnits="userSpaceOnUse">
       <feOffset input="SourceAlpha"/>
       <feGaussianBlur stdDeviation="1.5" result="blur"/>
       <feFlood flood-opacity="0.161"/>
@@ -13,6 +13,6 @@
     </filter>
   </defs>
   <g transform="matrix(1, 0, 0, 1, 0, 0)" filter="url(#noun-book-4638040)">
-    <path id="noun-book-4638040-2" data-name="noun-book-4638040" d="M146.113,159.92c-15.308,0-34.1,1-44.027,7.508,5.091-7.628,20.935-13.358,39.092-13.358a2.589,2.589,0,0,0,2.589-2.589V89.97a2.589,2.589,0,0,0-2.589-2.589c-20.314,0-37.159,6.472-43.389,15.723C91.558,93.853,74.713,87.381,54.4,87.381A2.589,2.589,0,0,0,51.81,89.97v61.511A2.589,2.589,0,0,0,54.4,154.07c18.156,0,34,5.73,39.092,13.358-9.924-6.507-28.719-7.508-44.027-7.508a2.589,2.589,0,0,0,0,5.178c30.341,0,45.737,4.729,45.737,14.066a2.589,2.589,0,0,0,5.178,0c0-9.337,15.395-14.066,45.737-14.066a2.589,2.589,0,0,0,0-5.178Z" transform="translate(-42.37 -82.88)" fill="url(#linear-gradient)"/>
+    <path id="noun-book-4638040-2" data-name="noun-book-4638040" d="M103.357,128.667c-8.713,0-19.41.57-25.058,4.273,2.9-4.342,11.915-7.6,22.249-7.6a1.474,1.474,0,0,0,1.473-1.473V88.855a1.474,1.474,0,0,0-1.473-1.473c-11.562,0-21.149,3.684-24.7,8.949-3.546-5.265-13.134-8.949-24.7-8.949a1.474,1.474,0,0,0-1.473,1.473v35.009a1.474,1.474,0,0,0,1.473,1.473c10.334,0,19.352,3.261,22.249,7.6-5.648-3.7-16.346-4.273-25.058-4.273a1.473,1.473,0,0,0,0,2.947c17.269,0,26.031,2.691,26.031,8.006a1.473,1.473,0,0,0,2.947,0c0-5.314,8.762-8.006,26.031-8.006a1.473,1.473,0,0,0,0-2.947Z" transform="translate(-42.37 -82.88)" fill="url(#linear-gradient)"/>
   </g>
 </svg>

@@ -23,7 +23,7 @@ export const Modal = ({
       <div className="opacity-1 z-10 fixed h-screen w-screen left-0 top-0 flex items-center justify-center transition-all">
         <div className="fixed dark-blue-to-purple cursor-pointer w-screen h-screen opacity-95"></div>
         <div
-          className={`bg-dark1 relative text-white p-8 rounded-md shadow-lg w-450`}
+          className={`bg-black relative text-white p-8 rounded-md shadow-lg w-450`}
         >
           <h2 className="font-display text-center text-xl mb-4">{title}</h2>
           <div>{children}</div>

@@ -17,18 +17,18 @@ export const Button = ({
   disabled?: boolean;
 }) => {
   const outlineColor = disabled
-    ? "bg-dark1"
+    ? "bg-black2"
     : theme === "minor"
-    ? "bg-dark1"
+    ? "bg-black2"
     : "bright-blue-to-purple";
 
   const buttonColors = disabled
-    ? "text-label bg-dark1"
+    ? "text-label bg-black2"
     : theme === "minor"
-    ? "text-iconwhite bg-dark1 hover:bg-dark1/90"
-    : "text-iconwhite bg-dark1 hover:bg-dark1/90";
+    ? "text-iconwhite bg-black hover:bg-black2/90"
+    : "text-iconwhite bg-black hover:bg-black2/90";
   const buttonLayout = "relative block text-center rounded-md py-2 px-4 w-full";
-  const classes = `font-display transition-all duration-300 ${buttonColors} ${buttonLayout}`;
+  const classes = `transition-all duration-300 ${buttonColors} ${buttonLayout}`;
 
   return (
     <div className={`${outlineColor} rounded-md p-0.5`}>
