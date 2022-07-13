@@ -24,7 +24,7 @@ export const Editor = ({
   value: string;
 }) => {
   const editor = useRef<monaco.editor.IStandaloneCodeEditor>();
-  const { currentFile } = useCurrentFile();
+  const { currentFile, applyChanges } = useCurrentFile();
 
   const handleKey = (e: React.KeyboardEvent) => {
     if (e.code === "KeyS" && (e.ctrlKey || e.metaKey)) {
@@ -67,6 +67,12 @@ export const Editor = ({
                 editor: editor.current as monaco.editor.IStandaloneCodeEditor,
               });
             }
+
+            applyChanges(
+              editor.current
+                ?.getValue({ preserveBOM: false, lineEnding: "" })
+                ?.replaceAll("\n\n", "\n") || ""
+            );
           });
         }
       }}

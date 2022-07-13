@@ -13,7 +13,7 @@ export const NavLink = ({
   return (
     <button
       onClick={onClick}
-      className={`hover:text-white font-thin text-sm transition-all flex ${className}`}
+      className={`text-grey-4 font-thin text-sm transition-all flex ${className}`}
     >
       {children}
     </button>

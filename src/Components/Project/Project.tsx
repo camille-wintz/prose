@@ -9,14 +9,6 @@ import { Nav } from "./Nav";
 export const Project = () => {
   const { main } = useProject();
   const { currentFile, saveFile } = useCurrentFile();
-  const [showFile, setShowFile] = useState(false);
-  const [showNav, setShowNav] = useState(false);
-
-  useEffect(() => {
-    if (currentFile) {
-      setShowFile(true);
-    }
-  }, [currentFile]);
 
   if (!main) {
     return null;
@@ -24,7 +16,7 @@ export const Project = () => {
 
   return (
     <div className={`grow h-full flex`}>
-      <FileNavigation className="ml-6" />
+      <Nav />
       {currentFile ? (
         <>
           <div className="flex grow overflow-auto justify-center h-full">
@@ -40,16 +32,6 @@ export const Project = () => {
           </div>
         </>
       ) : null}
-      <div
-        className={`fixed right-0 top-0 h-screen transition-all ${
-          !currentFile && !showFile ? "w-full items-center" : "w-24"
-        } flex p-6 justify-center`}
-      >
-        <button onClick={() => setShowNav(true)} className="flex">
-          <img src={Book} />
-        </button>
-      </div>
-      <Nav onDismiss={() => setShowNav(false)} visible={showNav} />
     </div>
   );
 };

@@ -24,7 +24,7 @@ function App() {
       <CurrentFileContext.Provider value={{ currentFile, setCurrentFile }}>
         <ProjectContext.Provider value={{ root, setRoot }}>
           <div
-            className={`flex h-screen w-screen bg-dark text-white ${
+            className={`flex h-screen w-screen bg-grey-1 ${
               root ? "items-start" : "items-center"
             } justify-center`}
           >

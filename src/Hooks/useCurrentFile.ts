@@ -1,20 +1,28 @@
 import React, { useContext } from "react";
+import { useQuery, useQueryClient } from "react-query";
+import { Chapter } from "./useChapters";
 import { useProject } from "./useProject";
 
 export const CurrentFileContext = React.createContext({
-  currentFile: undefined as
-    | { path: string; content: string; wordCount: number }
-    | undefined,
-  setCurrentFile: (file?: {
-    path: string;
-    content: string;
-    wordCount: number;
-  }) => {},
+  currentFile: undefined as { path: string } | undefined,
+  setCurrentFile: (file?: { path: string }) => {},
 });
 
 export const useCurrentFile = () => {
+  const client = useQueryClient();
   const { root } = useProject();
   const { currentFile, setCurrentFile } = useContext(CurrentFileContext);
+
+  const { data } = useQuery(["getCurrentFile", currentFile?.path], async () => {
+    if (!currentFile?.path) {
+      return undefined;
+    }
+
+    const content = await Electron.filesystem.readFile(currentFile?.path);
+    const wordCount = content.split(" ").length;
+
+    return { content, wordCount, path: currentFile?.path };
+  });
 
   const saveFile = async (content: string) => {
     if (!currentFile) {
@@ -22,21 +30,65 @@ export const useCurrentFile = () => {
     }
     try {
       await Electron.filesystem.writeFile(currentFile?.path, content);
+      client.setQueryData<Chapter[] | undefined>(
+        ["getChapters", root],
+        (chapters) =>
+          chapters?.map((c) =>
+            root + "/chapters/" + c.path === currentFile?.path
+              ? { ...c, saved: true }
+              : c
+          )
+      );
+
+      client.setQueryData<Chapter[] | undefined>(
+        ["getProjectFiles", root],
+        (files) =>
+          files?.map((f) =>
+            root + "/" + f.path === currentFile?.path
+              ? { ...f, saved: true }
+              : f
+          )
+      );
     } catch (e) {
       console.log(e);
     }
   };
 
   return {
-    currentFile,
-    openFile: async (path: string) => {
-      setCurrentFile(undefined);
-      const content = await Electron.filesystem.readFile(root + path);
-      setCurrentFile({
-        path: root + path,
+    currentFile: data,
+    applyChanges: (content: string) => {
+      client.setQueryData(["getCurrentFile", currentFile?.path], {
         content,
         wordCount: content.split(" ").length,
       });
+
+      client.setQueryData<Chapter[] | undefined>(
+        ["getChapters", root],
+        (chapters) =>
+          chapters?.map((c) =>
+            root + "/chapters/" + c.path === currentFile?.path
+              ? { ...c, saved: false }
+              : c
+          )
+      );
+
+      client.setQueryData<Chapter[] | undefined>(
+        ["getProjectFiles", root],
+        (files) =>
+          files?.map((f) =>
+            root + "/" + f.path === currentFile?.path
+              ? { ...f, saved: false }
+              : f
+          )
+      );
+    },
+    openFile: async (path: string) => {
+      setCurrentFile(undefined);
+      setTimeout(() => {
+        setCurrentFile({
+          path: root + path,
+        });
+      }, 10);
     },
     saveFile,
   };

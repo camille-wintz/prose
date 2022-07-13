@@ -37,12 +37,23 @@ export const ProjectFiles = ({ className }: { className?: string }) => {
     }
 
     const items = reorder(
-      projectFiles,
+      projectFiles.map((f) => f.path),
       result.source.index,
       result.destination.index
     );
 
-    client.setQueryData<string[]>(["getProjectFiles", root], items);
+    client.setQueryData<{ path: string; saved: boolean }[]>(
+      ["getProjectFiles", root],
+      items
+        .map(
+          (i) =>
+            projectFiles.find((pf) => pf.path === i) as {
+              path: string;
+              saved: boolean;
+            }
+        )
+        .filter((i) => i !== undefined)
+    );
 
     saveMain({
       ...main,
@@ -56,7 +67,6 @@ export const ProjectFiles = ({ className }: { className?: string }) => {
 
   return (
     <>
-      <NavHeader className="px-6 mb-4">Files</NavHeader>
       <DragDropContext onDragEnd={(e) => onDragEnd(e)}>
         <Droppable droppableId="droppable">
           {(provided, snapshot) => (
@@ -66,25 +76,26 @@ export const ProjectFiles = ({ className }: { className?: string }) => {
               className="flex flex-col"
             >
               {projectFiles.map((c, i) => (
-                <Draggable key={c} draggableId={c} index={i}>
+                <Draggable key={c.path} draggableId={c.path} index={i}>
                   {(provided, snapshot) => (
                     <div
                       ref={provided.innerRef}
                       {...provided.draggableProps}
                       {...provided.dragHandleProps}
                       style={provided.draggableProps.style}
-                      className={`w-full flex items-center justify-between py-2 px-6 navLine group border-b border-black2 border-solid last:border-b-0`}
+                      className={`w-full flex items-center justify-between py-2 navLine group`}
                     >
+                      <div
+                        className={`rounded-full h-1.5 w-1.5 ${
+                          c.saved ? "bg-grey-3" : "bg-pink"
+                        } mr-4`}
+                      />
                       <NavLink
                         className="mr-6"
-                        key={c}
                         onClick={() => openFile("/" + c)}
                       >
-                        {c.split(".md")[0]}
+                        {c.path.split(".md")[0]}
                       </NavLink>
-                      <MdDragHandle
-                        className={`ml-2 text-yellow group-hover:opacity-100 opacity-0 transition-all h-8 w-8`}
-                      />
                     </div>
                   )}
                 </Draggable>

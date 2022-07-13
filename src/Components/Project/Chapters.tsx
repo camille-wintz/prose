@@ -1,12 +1,10 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   DragDropContext,
   Droppable,
   Draggable,
   DropResult,
 } from "react-beautiful-dnd";
-import { FaBars } from "react-icons/fa";
-import { MdDragHandle } from "react-icons/md";
 import { useQueryClient } from "react-query";
 import { Chapter, useChapters } from "../../Hooks/useChapters";
 import { useCurrentFile } from "../../Hooks/useCurrentFile";
@@ -14,7 +12,7 @@ import { useProject } from "../../Hooks/useProject";
 import { Button } from "../Form/Button";
 import { Input } from "../Form/Input";
 import { Modal } from "../Modal";
-import { NavHeader, NavLink, Add } from "./NavComponents";
+import { Add, NavLink } from "./NavComponents";
 
 export const Chapters = ({ className }: { className?: string }) => {
   const client = useQueryClient();
@@ -69,22 +67,19 @@ export const Chapters = ({ className }: { className?: string }) => {
                       {...provided.draggableProps}
                       {...provided.dragHandleProps}
                       style={provided.draggableProps.style}
-                      className={`w-full flex flex-col py-2 group first:pt-0`}
+                      className={`w-full flex py-2 items-center group first:pt-0`}
                     >
                       <div
-                        className="font-bold flex items-center"
+                        className={`rounded-full h-1.5 w-1.5 ${
+                          c.saved ? "bg-grey-3" : "bg-pink"
+                        } mr-4`}
+                      />
+                      <NavLink
                         key={c.path}
                         onClick={() => openFile("/chapters/" + c.path)}
                       >
-                        <div className="cursor-pointer">
-                          {c.path.split(".md")[0]}
-                        </div>
-
-                        <MdDragHandle className="text-yellow h-8 w-8 ml-2 opacity-0 transition-all group-hover:opacity-100" />
-                      </div>
-                      <div className="font-thin max-w-[720px]">
-                        {c.excerpt}.
-                      </div>
+                        {c.path.split(".md")[0]}
+                      </NavLink>
                     </div>
                   )}
                 </Draggable>

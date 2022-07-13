@@ -10,7 +10,7 @@ export const Title = ({
   style?: any;
 }) => {
   return (
-    <h1 style={style} className={`font-display ${className}`}>
+    <h1 style={style} className={`font-display font-bold ${className}`}>
       {children}
     </h1>
   );

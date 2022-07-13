@@ -4,7 +4,7 @@ import { useProject } from "./useProject";
 export const useProjectFiles = () => {
   const { root, main, saveMain } = useProject();
   const client = useQueryClient();
-  const { data, status } = useQuery<string[]>(
+  const { data, status } = useQuery<{ path: string; saved: boolean }[]>(
     ["getProjectFiles", root],
     async () => {
       if (!main) {
@@ -37,8 +37,10 @@ export const useProjectFiles = () => {
         }
 
         return [
-          ...(main.projectFiles.filter((f) => !deletedFiles.includes(f)) || []),
-          ...missingFiles,
+          ...(
+            main.projectFiles.filter((f) => !deletedFiles.includes(f)) || []
+          ).map((f) => ({ path: f, saved: true })),
+          ...missingFiles.map((f) => ({ path: f, saved: true })),
         ];
       } catch (e: any) {
         console.log(e);
@@ -54,10 +56,16 @@ export const useProjectFiles = () => {
         ? root + "/" + title + ".md"
         : root + "/" + title;
     await Electron.filesystem.writeFile(path, "# " + title + "\n ");
-    client.setQueryData<string[]>(["getProjectFiles", root], (projectFiles) => [
-      ...(projectFiles || []),
-      title.indexOf(".") === -1 ? title + ".md" : title,
-    ]);
+    client.setQueryData<{ path: string; saved: boolean }[]>(
+      ["getProjectFiles", root],
+      (projectFiles) => [
+        ...(projectFiles || []),
+        {
+          path: title.indexOf(".") === -1 ? title + ".md" : title,
+          saved: true,
+        },
+      ]
+    );
   };
 
   return {

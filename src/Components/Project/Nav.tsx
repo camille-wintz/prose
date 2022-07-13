@@ -5,67 +5,57 @@ import { ProjectFiles } from "./ProjectFiles";
 import { useEffect, useState } from "react";
 import { FaAlignLeft, FaList } from "react-icons/fa";
 import { useCurrentFile } from "../../Hooks/useCurrentFile";
+import { NavLink } from "./NavComponents";
 
-export const Nav = ({
-  className,
-  visible,
-  onDismiss,
-}: {
-  className?: string;
-  visible: boolean;
-  onDismiss: () => void;
-}) => {
-  const { currentFile } = useCurrentFile();
+export const Nav = ({ className }: { className?: string }) => {
   const { main } = useProject();
-
-  useEffect(() => {
-    if (currentFile) {
-      onDismiss();
-    }
-  }, [currentFile]);
 
   return (
     <>
       <div
-        onClick={onDismiss}
-        className={`transition-all fixed left-0 top-0 z-10 h-full w-full flex dark-blue-to-purple ${
-          visible
-            ? "opacity-80 pointer-events-auto"
-            : "opacity-0 pointer-events-none"
-        }`}
-      ></div>
-      <div
-        className={`py-40 px-40 w-full h-full items-center transition-all z-20  ${
-          visible
-            ? "opacity-100 top-0 pointer-events-auto"
-            : "opacity-0 -top-64 pointer-events-none"
-        } justify-center items-stretch flex flex-col fixed`}
+        className={`p-6 w-[290px] h-screen items-center transition-all z-20 justify-center items-stretch flex flex-col bg-grey-2`}
       >
-        <div>
-          <Title
-            className={`text-4xl text-yellow grow mb-1 ${
-              className === "items-center" ? "text-center" : ""
-            }`}
-          >
-            Storms over Daggers
-          </Title>
-          <Subtitle className="text-white text-xl mb-6">
-            {(main?.wordCount || 0) > 1000
-              ? Math.round((main?.wordCount || 0) / 1000) + "k"
-              : main?.wordCount}{" "}
-            words
-          </Subtitle>
-        </div>
-        <div className="flex w-full overflow-auto">
-          <div className="bg-black text-white grow rounded-lg p-8 shadow-xl relative overflow-auto mr-6">
+        <Title
+          className={`text-2xl mb-1 text-grey-6 ${
+            className === "items-center" ? "text-center" : ""
+          }`}
+        >
+          Storms over Daggers
+        </Title>
+        <Subtitle className="text-white text-md font-light text-grey-4">
+          {(main?.wordCount || 0) > 1000
+            ? Math.round((main?.wordCount || 0) / 1000) + "k"
+            : main?.wordCount}{" "}
+          words
+        </Subtitle>
+        <div className="grow flex flex-col mt-2">
+          <h2 className="text-grey-6 text-sm uppercase my-4 font-bold">
+            Chapters
+          </h2>
+          <div className="relative grow border-y-[3px] border-solid">
             <div
-              className={`flex flex-col items-start overflow-auto w-full h-full`}
+              className={`flex flex-col items-start overflow-auto w-full h-full absolute py-4`}
             >
               <Chapters className={className} />
             </div>
           </div>
-          <div className="bg-black text-white rounded-lg py-8 shadow-xl relative overflow-auto mr-6">
-            <ProjectFiles className={className} />
+        </div>
+        <div className="mt-2">
+          <h2 className="text-grey-6 text-sm uppercase my-4 font-bold">
+            Story
+          </h2>
+          <NavLink>Story Grid</NavLink>
+        </div>
+        <div className="grow flex flex-col mt-2">
+          <h2 className="text-grey-6 text-sm uppercase my-4 font-bold">
+            Files
+          </h2>
+          <div className="relative grow border-y-[3px] border-solid">
+            <div
+              className={`flex flex-col items-start overflow-auto w-full h-full absolute py-4`}
+            >
+              <ProjectFiles className={className} />
+            </div>
           </div>
         </div>
       </div>

@@ -4,7 +4,7 @@ import { useProject } from "./useProject";
 export interface Chapter {
   path: string;
   content: string;
-  excerpt: string;
+  saved: boolean;
 }
 
 export const useChapters = () => {
@@ -41,10 +41,7 @@ export const useChapters = () => {
           result.push({
             path: chapter,
             content,
-            excerpt:
-              content.split(". ")[
-                Math.floor(Math.random() * content.split(". ").length - 1)
-              ],
+            saved: true,
           });
         }
 
@@ -70,7 +67,7 @@ export const useChapters = () => {
       {
         path: title + ".md",
         content: "# " + title + "\n ",
-        excerpt: "Start writing...",
+        saved: true,
       },
     ]);
   };

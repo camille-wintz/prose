@@ -18,12 +18,14 @@ module.exports = {
       },
     },
     colors: {
-      dark: "#24283b",
-      white: "#F8F8F8",
-      black: "#1D1D1D",
-      blue: "#1253CD",
-      yellow: "#FFA934",
-      black2: "#272727",
+      grey: {
+        1: "#FAFAFA",
+        2: "#F4F4F4",
+        3: "#B7B7B7",
+        4: "#525252",
+        5: "#383838",
+      },
+      pink: "#FF08F6",
     },
     fontFamily: {
       display: ["Averia Serif Libre"],

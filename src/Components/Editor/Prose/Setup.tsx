@@ -7,30 +7,29 @@ export const setupProse = () => {
     rules: [
       {
         token: "title",
-        foreground: "73daca",
+        foreground: "FF08F6",
         fontStyle: "bold",
       },
       {
         token: "delimiter",
-        foreground: "e0af68",
+        foreground: "FF08F6",
       },
       {
         token: "dialog",
-        foreground: "2ac3de",
+        foreground: "CE00C6",
       },
       {
         token: "emphasis",
-        foreground: "a9b1d6",
         fontStyle: "italic",
       },
     ],
     colors: {
-      "editor.foreground": "#a9b1d6",
-      "editor.background": "#24283b",
-      "editorCursor.foreground": "#f7768e",
-      "editor.lineHighlightBackground": "#1a1b26",
-      "editorLineNumber.foreground": "#f7768e",
-      "editorLineNumber.activeForeground": "#f7768e",
+      "editor.background": "#FAFAFA",
+      "editor.foreground": "#525252",
+      "editorCursor.foreground": "#FF08F6",
+      "editor.lineHighlightBackground": "#F4F4F4",
+      "editorLineNumber.foreground": "#FF08F6",
+      "editorLineNumber.activeForeground": "#FF08F6",
       "editor.selectionBackground": "#166775",
       "editor.inactiveSelectionBackground": "#166775",
     },
@@ -52,7 +51,7 @@ export const setupProse = () => {
         ],
         // markup within lines
         { include: "@linecontent" },
-        [/[;:?!]/, "delimiter"],
+        [/[—;:?!]/, "delimiter"],
       ],
       linecontent: [
         // various markup
