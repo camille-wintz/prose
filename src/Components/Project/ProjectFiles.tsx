@@ -83,7 +83,7 @@ export const ProjectFiles = ({ className }: { className?: string }) => {
                       {...provided.draggableProps}
                       {...provided.dragHandleProps}
                       style={provided.draggableProps.style}
-                      className={`w-full flex items-center justify-between py-2 navLine group`}
+                      className={`w-full flex items-center py-2 navLine group`}
                     >
                       <div
                         className={`rounded-full h-1.5 w-1.5 ${

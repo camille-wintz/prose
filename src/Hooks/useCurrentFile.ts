@@ -17,11 +17,13 @@ export const useCurrentFile = () => {
     if (!currentFile?.path) {
       return undefined;
     }
+    try {
+      const content = await Electron.filesystem.readFile(currentFile?.path);
 
-    const content = await Electron.filesystem.readFile(currentFile?.path);
-    const wordCount = content.split(" ").length;
-
-    return { content, wordCount, path: currentFile?.path };
+      return { content, path: currentFile?.path };
+    } catch (e) {
+      return { content: "", path: currentFile?.path };
+    }
   });
 
   const saveFile = async (content: string) => {
@@ -59,7 +61,6 @@ export const useCurrentFile = () => {
     applyChanges: (content: string) => {
       client.setQueryData(["getCurrentFile", currentFile?.path], {
         content,
-        wordCount: content.split(" ").length,
       });
 
       client.setQueryData<Chapter[] | undefined>(

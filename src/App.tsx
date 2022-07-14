@@ -14,9 +14,9 @@ const client = new QueryClient({
 });
 
 function App() {
-  const [currentFile, setCurrentFile] = useState<
-    { path: string; content: string; wordCount: number } | undefined
-  >(undefined);
+  const [currentFile, setCurrentFile] = useState<{ path: string } | undefined>(
+    undefined
+  );
   const [root, setRoot] = useState<string>("");
 
   return (

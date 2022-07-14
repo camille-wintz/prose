@@ -1,9 +1,7 @@
-import { useEffect, useState } from "react";
-import Book from "../../Assets/Book.svg";
 import { useCurrentFile } from "../../Hooks/useCurrentFile";
 import { useProject } from "../../Hooks/useProject";
 import { Editor } from "../Editor/Editor";
-import { FileNavigation } from "../File/FileNavigation";
+import { StoryGrid } from "../StoryGrid/StoryGrid";
 import { Nav } from "./Nav";
 
 export const Project = () => {
@@ -17,7 +15,7 @@ export const Project = () => {
   return (
     <div className={`grow h-full flex`}>
       <Nav />
-      {currentFile ? (
+      {currentFile && !currentFile.path.endsWith(".storygrid") ? (
         <>
           <div className="flex grow overflow-auto justify-center h-full">
             <Editor
@@ -27,8 +25,18 @@ export const Project = () => {
               }}
             />
           </div>
-          <div className="text-label fixed right-8 bottom-6">
-            {currentFile.wordCount} words
+        </>
+      ) : null}
+
+      {currentFile && currentFile.path.endsWith(".storygrid") ? (
+        <>
+          <div className="flex grow overflow-auto justify-center h-full">
+            <StoryGrid
+              value={currentFile.content ? JSON.parse(currentFile.content) : {}}
+              onChange={(value) => {
+                saveFile(JSON.stringify(value));
+              }}
+            />
           </div>
         </>
       ) : null}

@@ -3,11 +3,12 @@ import { useProject } from "../../Hooks/useProject";
 import { Chapters } from "./Chapters";
 import { ProjectFiles } from "./ProjectFiles";
 import { useEffect, useState } from "react";
-import { FaAlignLeft, FaList } from "react-icons/fa";
+import { FiLayout } from "react-icons/fi";
 import { useCurrentFile } from "../../Hooks/useCurrentFile";
 import { NavLink } from "./NavComponents";
 
 export const Nav = ({ className }: { className?: string }) => {
+  const { openFile } = useCurrentFile();
   const { main } = useProject();
 
   return (
@@ -44,7 +45,10 @@ export const Nav = ({ className }: { className?: string }) => {
           <h2 className="text-grey-6 text-sm uppercase my-4 font-bold">
             Story
           </h2>
-          <NavLink>Story Grid</NavLink>
+          <NavLink onClick={() => openFile("/Story Grid.storygrid")}>
+            <FiLayout className="text-grey-4 mr-2" />
+            Story Grid
+          </NavLink>
         </div>
         <div className="grow flex flex-col mt-2">
           <h2 className="text-grey-6 text-sm uppercase my-4 font-bold">
