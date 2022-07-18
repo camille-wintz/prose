@@ -1,30 +1,6 @@
-$dark0: #121219;
-$dark1: #1a1a1f;
-$darkPurple: #34083c;
-$darkBlue: rgba(14, 57, 83, 1);
-$brightBlue: #1253cd;
-$brightPurple: #a70bc6;
-$brightOrange: #a2680a;
-$brightGreen: #627e04;
-$brightRed: #8d2d03;
-$midBlue: #064979;
-$midPurple: #560465;
-$white: #dee5ec;
-$label: #a4b1bc;
-$yellow: #ffa934;
+$navBackground: #f8f4e9;
+$content1: #b4b4b4;
+$content3: #383838;
 
-.dark-blue-to-purple {
-  background-image: linear-gradient(146deg, #1c345f 0%, #5a1b67 100%);
-}
-
-.blue-to-purple {
-  background-image: linear-gradient(146deg, $midBlue 0%, $midPurple 100%);
-}
-
-.bright-blue-to-purple {
-  background-image: linear-gradient(146deg, $brightBlue, $brightPurple);
-}
-
-.bright-orange-to-blue {
-  background-image: linear-gradient(146deg, $brightOrange, $brightBlue);
-}
+$pink: #ff48b3;
+$blue: #09a1ed;

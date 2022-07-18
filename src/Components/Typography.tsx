@@ -1,21 +1,5 @@
 import React, { ReactNode } from "react";
 
-export const Title = ({
-  children,
-  className = "",
-  style = {},
-}: {
-  children: ReactNode;
-  className?: string;
-  style?: any;
-}) => {
-  return (
-    <h1 style={style} className={`font-display font-bold ${className}`}>
-      {children}
-    </h1>
-  );
-};
-
 export const Subtitle = ({
   children,
   className = "",
@@ -26,19 +10,22 @@ export const Subtitle = ({
   style?: any;
 }) => {
   return (
-    <h2 style={style} className={`text-label font-sans ${className}`}>
+    <h2
+      style={style}
+      className={`content-3 font-semibold font-sans ${className}`}
+    >
       {children}
     </h2>
   );
 };
 
-export const Divider = ({
-  className = "bright-blue-to-purple",
-}: {
-  className?: string;
-  style?: any;
-}) => (
-  <hr
-    className={`border-0 h-1 w-full rounded-md mt-4 mb-4 shrink-0 ${className}`}
-  />
+export const ListDot = () => (
+  <div className="h-2 w-2 bg-pink rounded-full mr-2 inline-block align-middle" />
+);
+
+export const Li = ({ children }: { children: React.ReactNode }) => (
+  <li>
+    <ListDot />
+    {children}
+  </li>
 );

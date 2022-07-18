@@ -87,12 +87,12 @@ export const ProjectFiles = ({ className }: { className?: string }) => {
                     >
                       <div
                         className={`rounded-full h-1.5 w-1.5 ${
-                          c.saved ? "bg-grey-3" : "bg-pink"
+                          c.saved ? "bg-grey-1" : "bg-pink"
                         } mr-4`}
                       />
                       <NavLink
                         className="mr-6"
-                        onClick={() => openFile("/" + c)}
+                        onClick={() => openFile("/" + c.path)}
                       >
                         {c.path.split(".md")[0]}
                       </NavLink>

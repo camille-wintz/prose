@@ -71,7 +71,7 @@ export const Chapters = ({ className }: { className?: string }) => {
                     >
                       <div
                         className={`rounded-full h-1.5 w-1.5 ${
-                          c.saved ? "bg-grey-3" : "bg-pink"
+                          c.saved ? "bg-grey-1" : "bg-pink"
                         } mr-4`}
                       />
                       <NavLink

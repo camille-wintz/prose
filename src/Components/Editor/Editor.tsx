@@ -46,7 +46,9 @@ export const Editor = ({
         if (r && r.childNodes.length === 0) {
           editor.current = monaco.editor.create(r, {
             readOnly: false,
-            value: currentFile?.content.replace(/\n/g, "\n\n"),
+            value: currentFile?.content
+              .replace(/\n/g, "\n\n")
+              .replace(/@(.*)\n\n@/g, "@$1\n@"),
             fontSize: 16,
             lineHeight: 26,
             language: "prose",
@@ -55,6 +57,7 @@ export const Editor = ({
             occurrencesHighlight: false,
             minimap: { enabled: false },
             scrollbar: { vertical: "hidden", useShadows: false },
+            lineNumbers: "off",
             padding: {
               top: 120,
             },

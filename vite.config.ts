@@ -7,6 +7,11 @@ const generateScopedName = "[name]__[local]___[hash:base64:5]";
 
 export default defineConfig({
   plugins: [react()],
+  resolve:{
+    alias:{
+      '@' : path.resolve(__dirname, './src')
+    },
+  },
   build: {
     minify: false,
     sourcemap: true,
@@ -16,4 +21,5 @@ export default defineConfig({
       generateScopedName,
     },
   },
+  
 });

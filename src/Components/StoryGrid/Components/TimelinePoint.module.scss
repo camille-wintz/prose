@@ -1,0 +1,28 @@
+.plotPoint {
+  position: absolute;
+  right: 2rem;
+
+  &:nth-child(1) {
+    top: 0;
+  }
+
+  &:nth-child(2) {
+    top: 25%;
+  }
+
+  &:nth-child(3) {
+    top: 50%;
+  }
+
+  &:nth-child(4) {
+    top: 75%;
+  }
+
+  &:nth-child(2n) {
+    left: 2rem;
+  }
+
+  h3 {
+    font-size: large;
+  }
+}

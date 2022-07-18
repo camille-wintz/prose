@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { useQuery, useQueryClient } from "react-query";
 import { Chapter } from "./useChapters";
 import { useProject } from "./useProject";
@@ -12,6 +12,13 @@ export const useCurrentFile = () => {
   const client = useQueryClient();
   const { root } = useProject();
   const { currentFile, setCurrentFile } = useContext(CurrentFileContext);
+
+  useEffect(() => {
+    const lastOpened = localStorage.getItem("LastOpenedFile");
+    if (lastOpened) {
+      setCurrentFile({ path: lastOpened });
+    }
+  }, []);
 
   const { data } = useQuery(["getCurrentFile", currentFile?.path], async () => {
     if (!currentFile?.path) {
@@ -59,9 +66,13 @@ export const useCurrentFile = () => {
   return {
     currentFile: data,
     applyChanges: (content: string) => {
-      client.setQueryData(["getCurrentFile", currentFile?.path], {
-        content,
-      });
+      client.setQueryData<{ path?: string; content: string }>(
+        ["getCurrentFile", currentFile?.path],
+        (currentFile) => ({
+          ...currentFile,
+          content,
+        })
+      );
 
       client.setQueryData<Chapter[] | undefined>(
         ["getChapters", root],
@@ -89,6 +100,7 @@ export const useCurrentFile = () => {
         setCurrentFile({
           path: root + path,
         });
+        localStorage.setItem("LastOpenedFile", root + path);
       }, 10);
     },
     saveFile,

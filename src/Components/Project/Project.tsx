@@ -30,7 +30,7 @@ export const Project = () => {
 
       {currentFile && currentFile.path.endsWith(".storygrid") ? (
         <>
-          <div className="flex grow overflow-auto justify-center h-full">
+          <div className="flex flex-col grow overflow-auto justify-center h-full">
             <StoryGrid
               value={currentFile.content ? JSON.parse(currentFile.content) : {}}
               onChange={(value) => {

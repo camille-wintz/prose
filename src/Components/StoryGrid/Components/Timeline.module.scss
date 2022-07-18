@@ -1,0 +1,13 @@
+@import "@/Styles/Vars";
+
+.timeline {
+  position: relative;
+  margin: auto;
+
+  .band {
+    width: 6px;
+    border-radius: 3px;
+    height: 800px;
+    background-image: linear-gradient(180deg, $pink 0%, $blue 100%);
+  }
+}

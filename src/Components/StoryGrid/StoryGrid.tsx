@@ -1,6 +1,7 @@
-import { Title } from "../Typography";
-
-export interface Grid {}
+import { useGridAnalysis } from "@/Components/StoryGrid/Hooks/Grid";
+import { Grid } from "@/Components/StoryGrid/Interfaces/Grid";
+import { Empty } from "@/Components/StoryGrid/Views/Empty";
+import { GridView } from "@/Components/StoryGrid/Views/GridView";
 
 export const StoryGrid = ({
   value,
@@ -9,9 +10,15 @@ export const StoryGrid = ({
   value: Grid;
   onChange: (g: Grid) => void;
 }) => {
+  const { grid } = useGridAnalysis();
+
+  if (!grid?.plots || !grid?.plots.length) {
+    return <Empty />;
+  }
+
   return (
     <>
-      <Title className="text-3xl mt-10">Story Grid</Title>
+      <GridView grid={grid} />
     </>
   );
 };
