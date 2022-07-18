@@ -15,7 +15,7 @@ export const Input = ({
   return (
     <>
       <div className={`flex justify-between mb-1 ${className}`}>
-        <div className="input-text-label text-lg">{label}</div>
+        <div className="text-content-2 text-md">{label}</div>
       </div>
       <input
         {...rest}

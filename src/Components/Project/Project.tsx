@@ -33,9 +33,6 @@ export const Project = () => {
           <div className="flex flex-col grow overflow-auto justify-center h-full">
             <StoryGrid
               value={currentFile.content ? JSON.parse(currentFile.content) : {}}
-              onChange={(value) => {
-                saveFile(JSON.stringify(value));
-              }}
             />
           </div>
         </>
