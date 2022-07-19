@@ -1,4 +1,5 @@
-import React, { ReactNode, useContext, useState } from "react";
+import { ReactNode } from "react";
+import styles from "@/Components/Form/Button.module.scss";
 
 export const Button = ({
   onClick,
@@ -16,26 +17,16 @@ export const Button = ({
   type?: "button" | "submit";
   disabled?: boolean;
 }) => {
-  const outlineColor = disabled
-    ? "bg-black2"
-    : theme === "minor"
-    ? "bg-black2"
-    : "bright-blue-to-purple";
-
-  const buttonColors = disabled
-    ? "text-label bg-black2"
-    : theme === "minor"
-    ? "text-iconwhite bg-black hover:bg-black2/90"
-    : "text-iconwhite bg-black hover:bg-black2/90";
-  const buttonLayout = "relative block text-center rounded-md py-2 px-4 w-full";
-  const classes = `transition-all duration-300 ${buttonColors} ${buttonLayout}`;
-
   return (
-    <div className={`${outlineColor} rounded-md p-0.5`}>
+    <div
+      className={`${className || ""} ${styles.button} ${styles[theme]} ${
+        disabled ? styles.disabled : ""
+      }`}
+    >
       <button
         type={type}
         onClick={onClick}
-        className={classes}
+        className={styles.inner}
         disabled={disabled}
       >
         {children}

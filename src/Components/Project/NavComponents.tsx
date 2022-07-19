@@ -29,18 +29,3 @@ export const NavHeader = ({
 }) => (
   <h3 className={`text-white font-bold text-lg ${className}`}>{children}</h3>
 );
-
-export const Add = ({
-  onClick,
-  className,
-}: {
-  onClick: () => void;
-  className?: string;
-}) => (
-  <div
-    className={`flex mb-2 mt-8 text-label hover:text-white transition-all justify-center items-center ${className}`}
-    onClick={onClick}
-  >
-    <FaPlusCircle className="mr-2 text-yellow h-8 w-8" />
-  </div>
-);

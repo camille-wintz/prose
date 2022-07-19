@@ -1,0 +1,53 @@
+@import "@/Styles/Vars";
+
+.button {
+  border-radius: 24px;
+  padding: 3px;
+
+  &:hover {
+    .inner {
+      background-color: rgba(255, 255, 255, 0.8);
+
+      svg {
+        transition: all 350ms ease;
+        color: $pink;
+      }
+    }
+  }
+}
+
+.primary {
+  opacity: 0.8;
+  background-image: linear-gradient(45deg, $pink 0%, $blue 100%);
+
+  &.disabled {
+    opacity: 0.4;
+
+    .inner {
+      background-color: rgba(255, 255, 255, 0.7);
+    }
+  }
+}
+
+.minor {
+  background-color: $content1;
+  .inner {
+    background-color: rgba(255, 255, 255, 0.9);
+  }
+}
+
+button.inner {
+  background-color: white;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-right: 1.5rem;
+  padding-left: 1.5rem;
+  border-radius: 20px;
+  width: 100%;
+  transition: all 350ms ease;
+  font-family: "Averia Serif Libre", cursive;
+  font-weight: bold;
+  display: flex;
+  column-gap: 0.25rem;
+  align-items: center;
+}

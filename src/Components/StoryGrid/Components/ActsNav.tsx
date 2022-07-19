@@ -1,5 +1,8 @@
 import { Act } from "@/Components/StoryGrid/Interfaces/Act";
 import styles from "@/Components/StoryGrid/Components/ActsNav.module.scss";
+import React from "react";
+import { useRef } from "react";
+import { useEffect } from "react";
 
 const toRoman = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"];
 
@@ -12,10 +15,26 @@ export const ActsNav = ({
   acts: Act[];
   onChange: (i: number) => void;
 }) => {
+  const refs = acts.map(() => useRef<HTMLButtonElement>(null));
+  const tracker = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!tracker.current) {
+      return;
+    }
+
+    tracker.current.style.left = `${refs[actIndex].current?.offsetLeft || 0}px`;
+    tracker.current.style.width = `${
+      refs[actIndex].current?.offsetWidth || 0
+    }px`;
+  }, [actIndex]);
+
   return (
     <nav className={styles.actsNav}>
       {acts.map((a, i) => (
         <button
+          key={i}
+          ref={refs[i]}
           onClick={() => onChange(i)}
           className={
             i === actIndex ? "text-content-3 font-bold" : "text-content-1"
@@ -24,6 +43,7 @@ export const ActsNav = ({
           Act {toRoman[i]}
         </button>
       ))}
+      <div ref={tracker} className={styles.tracker} />
     </nav>
   );
 };

@@ -22,6 +22,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@react-hookz/web": "^15.0.1",
     "@types/lodash": "^4.14.182",
     "@types/react-transition-group": "^4.4.4",
     "lodash": "^4.17.21",
@@ -36,7 +37,6 @@
     "react-icons": "^4.3.1",
     "react-query": "^3.34.19",
     "react-transition-group": "^4.4.2",
-    "react-use": "^17.4.0",
     "remark-parse": "^10.0.1",
     "remark-slate": "^1.8.5",
     "sass": "^1.49.11",

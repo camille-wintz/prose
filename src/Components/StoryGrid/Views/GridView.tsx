@@ -41,18 +41,26 @@ export const GridView = ({
         acts={grid.plots.find((p) => p.name === plotName)?.acts || []}
         onChange={(i) => setActIndex(i)}
       />
-      <Timeline
-        act={grid.plots[0].acts[actIndex]}
-        onChange={(v) =>
-          onChange({
-            ...grid,
-            plots: grid.plots.map((p) => ({
-              ...p,
-              acts: plot?.acts.map((a, i) => (i === actIndex ? v : a)) || [],
-            })),
-          })
-        }
-      />
+      {plot ? (
+        <Timeline
+          act={plot?.acts[actIndex]}
+          onChange={(v) =>
+            onChange({
+              ...grid,
+              plots: grid.plots.map((p) =>
+                p.name === plotName
+                  ? {
+                      ...p,
+                      acts:
+                        plot?.acts.map((a, i) => (i === actIndex ? v : a)) ||
+                        [],
+                    }
+                  : p
+              ),
+            })
+          }
+        />
+      ) : null}
     </>
   );
 };

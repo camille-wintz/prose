@@ -1,4 +1,4 @@
-import { Subtitle } from "../Typography";
+import { Subtitle } from "../Common/Typography";
 import { useProject } from "../../Hooks/useProject";
 import { Chapters } from "./Chapters";
 import { ProjectFiles } from "./ProjectFiles";
@@ -7,7 +7,7 @@ import { useCurrentFile } from "../../Hooks/useCurrentFile";
 import { NavLink } from "./NavComponents";
 import styles from "./Nav.module.scss";
 
-export const Nav = ({ className }: { className?: string }) => {
+export const Nav = () => {
   const { openFile } = useCurrentFile();
   const { main } = useProject();
 
@@ -21,27 +21,19 @@ export const Nav = ({ className }: { className?: string }) => {
         words
       </Subtitle>
       <section className="grow flex flex-col">
-        <h2 className="text-sm my-4 font-bold">Chapters</h2>
-        <div className={styles.files}>
-          <div>
-            <Chapters className={className} />
-          </div>
-        </div>
+        <Chapters />
       </section>
       <section>
-        <h2 className="text-sm my-4 font-bold">Story</h2>
+        <h2>
+          <span>Story</span>
+        </h2>
         <NavLink onClick={() => openFile("/Story Grid.storygrid")}>
           <FiLayout className="text-grey-4 mr-2" />
           Story Grid
         </NavLink>
       </section>
       <section className="grow flex flex-col">
-        <h2 className="text-sm my-4 font-bold">Files</h2>
-        <div className={styles.files}>
-          <div>
-            <ProjectFiles className={className} />
-          </div>
-        </div>
+        <ProjectFiles />
       </section>
     </nav>
   );

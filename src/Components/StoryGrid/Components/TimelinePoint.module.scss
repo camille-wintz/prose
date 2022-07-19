@@ -21,6 +21,7 @@
     font-weight: 100;
     padding-top: 1rem;
     padding-bottom: 1rem;
+    margin-top: 0.5rem;
     border-color: #000000;
     outline: 0;
   }
@@ -62,7 +63,7 @@
 
   p {
     font-weight: 100;
-    color: $content2;
+    white-space: pre-line;
   }
 
   button {

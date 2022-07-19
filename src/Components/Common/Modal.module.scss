@@ -1,0 +1,59 @@
+@import "@/Styles/Vars";
+
+.backdrop {
+  position: fixed;
+  cursor: pointer;
+  width: 100vw;
+  height: 100vh;
+  background-image: linear-gradient(145deg, #ff8dfb 0%, #a7e2ff 100%);
+  opacity: 0.9;
+}
+
+.modal {
+  background-color: $appBackground;
+  position: relative;
+  border-radius: 4px;
+  width: 450px;
+  box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.25);
+  transition: all 500ms ease;
+  overflow: hidden;
+  max-height: calc(100vh - 100px);
+}
+
+.footer {
+  padding: 1rem;
+  background-color: $navBackground;
+  display: flex;
+  justify-content: flex-end;
+  column-gap: 0.5rem;
+}
+
+.enter {
+  opacity: 0;
+
+  .modal {
+    margin-top: -100px;
+  }
+}
+.enterActive {
+  opacity: 1;
+
+  .modal {
+    margin-top: 0;
+  }
+}
+.exit {
+  opacity: 1;
+  pointer-events: none;
+
+  .modal {
+    margin-top: 0;
+  }
+}
+.exitActive {
+  opacity: 0;
+
+  .modal {
+    margin-top: -100px;
+  }
+}

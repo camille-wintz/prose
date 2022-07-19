@@ -1,4 +1,4 @@
-import { Li } from "@/Components/Typography";
+import { Li } from "@/Components/Common/Typography";
 
 export const Empty = () => {
   return (

@@ -2,8 +2,8 @@ import { Plot } from "@/Components/StoryGrid/Interfaces/Plot";
 import styles from "@/Components/StoryGrid/Components/PlotsNav.module.scss";
 import { useRef, useState } from "react";
 import { MdOutlineKeyboardArrowDown } from "react-icons/md";
-import { useClickAway } from "react-use";
-import { Modal } from "@/Components/Modal";
+import { useClickOutside } from "@react-hookz/web";
+import { Modal } from "@/Components/Common/Modal";
 import { Input } from "@/Components/Form/Input";
 import { Button } from "@/Components/Form/Button";
 
@@ -23,7 +23,7 @@ export const PlotsNav = ({
   const container = useRef<HTMLDivElement>(null);
   const [opened, setOpened] = useState(false);
 
-  useClickAway(container, () => setTimeout(() => setOpened(false), 100));
+  useClickOutside(container, () => setTimeout(() => setOpened(false), 100));
 
   return (
     <>
@@ -42,6 +42,7 @@ export const PlotsNav = ({
         <section className={`${styles.list} ${opened ? styles.opened : ""}`}>
           {plots.map((plot) => (
             <button
+              key={plot.name}
               onClick={() => {
                 onChange(plot.name);
                 setOpened(false);
@@ -60,7 +61,11 @@ export const PlotsNav = ({
           </button>
         </section>
       </nav>
-      <Modal title="New subplot" show={showAddSubplot}>
+      <Modal
+        title="New subplot"
+        show={showAddSubplot}
+        onDismiss={() => setShowAddSubplot(false)}
+      >
         <Input
           label="Title"
           value={title}

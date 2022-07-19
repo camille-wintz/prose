@@ -4,8 +4,8 @@ import {
   plotPointNames,
 } from "@/Components/StoryGrid/Interfaces/PlotPoint";
 import styles from "@/Components/StoryGrid/Components/TimelinePoint.module.scss";
-import { useRef, useState } from "react";
-import { useClickAway } from "react-use";
+import { useEffect, useRef, useState } from "react";
+import { useClickOutside } from "@react-hookz/web";
 
 export const TimelinePoint = ({
   point,
@@ -18,7 +18,11 @@ export const TimelinePoint = ({
   const [isEditing, setIsEditing] = useState(false);
   const container = useRef<HTMLDivElement>(null);
 
-  useClickAway(container, () => {
+  useEffect(() => {
+    setContent(point.content);
+  }, [point]);
+
+  useClickOutside(container, () => {
     if (!isEditing) {
       return;
     }
@@ -41,7 +45,9 @@ export const TimelinePoint = ({
           {point.content}
         </textarea>
       ) : (
-        <p>{point.content || plotPointContents[point.eventType]}</p>
+        <p className={point.content ? "text-content-2" : "text-content-1"}>
+          {point.content || plotPointContents[point.eventType]}
+        </p>
       )}
       <button>{point.scene || "Pick a scene"}</button>
     </div>

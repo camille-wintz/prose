@@ -11,12 +11,31 @@
   justify-content: center;
   background-color: $navBackground;
 
-  section {
-    margin-top: 0.5rem;
+  > section {
+    margin-top: 1.5rem;
 
-    h2 {
-      text-transform: uppercase;
-      font-weight: bold;
+    > h2 {
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+
+      > svg {
+        height: 16px;
+        width: 16px;
+        transition: all 350ms ease;
+        cursor: pointer;
+
+        &:hover {
+          color: $pink;
+        }
+      }
+
+      > span {
+        text-transform: uppercase;
+        font-weight: bold;
+        font-size: small;
+      }
     }
 
     .files {
