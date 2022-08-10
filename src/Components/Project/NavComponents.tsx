@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react";
-import { FaPlusCircle } from "react-icons/fa";
+import styles from "./Nav.module.scss";
 
 export const NavLink = ({
   onClick,
@@ -11,10 +11,7 @@ export const NavLink = ({
   className?: string;
 }) => {
   return (
-    <button
-      onClick={onClick}
-      className={`text-grey-4 font-thin text-sm transition-all flex items-center ${className}`}
-    >
+    <button onClick={onClick} className={`${styles.link} ${className}`}>
       {children}
     </button>
   );

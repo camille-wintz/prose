@@ -8,11 +8,27 @@ contextBridge.exposeInMainWorld("Electron", {
     readDirectory: async (directory) => {
       return await ipcRenderer.invoke("filesystem:readDirectory", directory);
     },
+    createDirectory: async (directory) => {
+      return await ipcRenderer.invoke("filesystem:createDirectory", directory);
+    },
     readFile: async (path) => {
       return await ipcRenderer.invoke("filesystem:readFile", path);
     },
     writeFile: async (path, content) => {
       return await ipcRenderer.invoke("filesystem:writeFile", path, content);
+    },
+    deleteFile: async (path) => {
+      return await ipcRenderer.invoke("filesystem:deleteFile", path);
+    },
+    onClose: (cb) => {
+      ipcRenderer.on("filesystem:onClose", cb);
+
+      return () => ipcRenderer.removeListener("filesystem:onClose", cb);
+    },
+    onOpenNovel: (cb) => {
+      ipcRenderer.on("filesystem:onOpenNovel", cb);
+
+      return () => ipcRenderer.removeListener("filesystem:onOpenNovel", cb);
     },
   },
 });

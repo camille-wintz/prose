@@ -31,7 +31,8 @@ export const Chapters = () => {
                 key={c.path}
                 onClick={() => openFile("/chapters/" + c.path)}
               >
-                {c.path.split(".md")[0]}
+                <div>{c.path.split(".md")[0]}</div>
+                <div className="text-xs">{c.content.split(" ").length}</div>
               </NavLink>
             </div>
           ))}

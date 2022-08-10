@@ -65,7 +65,7 @@ export const useGridAnalysis = (gridFile: Grid) => {
   };
 
   useEffect(() => {
-    if (!chapters || !chapters.length) return;
+    if (!chapters) return;
 
     analyzeChapters(chapters);
   }, [chapters?.length]);

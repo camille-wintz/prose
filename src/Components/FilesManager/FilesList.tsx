@@ -53,7 +53,12 @@ export const FilesList = () => {
     });
   };
 
-  if (!projectFiles) return null;
+  if (!projectFiles || !projectFiles.length)
+    return (
+      <div className="grow overflow-auto relative p-10 flex items-center justify-center">
+        Manage your project notes and research
+      </div>
+    );
 
   return (
     <div className="grow overflow-auto relative">

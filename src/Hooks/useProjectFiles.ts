@@ -7,9 +7,11 @@ export const useProjectFiles = () => {
   const { data, status } = useQuery<{ path: string; saved: boolean }[]>(
     ["getProjectFiles", root],
     async () => {
-      if (!main) {
+      if (!main || !root) {
         return [];
       }
+
+      const initialList = main.projectFiles || [];
 
       try {
         const files = await Electron.filesystem.readDirectory(root);
@@ -18,10 +20,10 @@ export const useProjectFiles = () => {
         );
 
         const missingFiles = projectFiles.filter(
-          (f) => !main.projectFiles?.some((c) => c === f)
+          (f) => !initialList.some((c) => c === f)
         );
 
-        const deletedFiles = main.projectFiles.filter(
+        const deletedFiles = initialList.filter(
           (f) => !projectFiles?.some((c) => c === f)
         );
 
@@ -29,17 +31,16 @@ export const useProjectFiles = () => {
           saveMain({
             ...main,
             projectFiles: [
-              ...(main.projectFiles.filter((f) => !deletedFiles.includes(f)) ||
-                []),
+              ...initialList.filter((f) => !deletedFiles.includes(f)),
               ...missingFiles,
             ],
           });
         }
 
         return [
-          ...(
-            main.projectFiles.filter((f) => !deletedFiles.includes(f)) || []
-          ).map((f) => ({ path: f, saved: true })),
+          ...initialList
+            .filter((f) => !deletedFiles.includes(f))
+            .map((f) => ({ path: f, saved: true })),
           ...missingFiles.map((f) => ({ path: f, saved: true })),
         ];
       } catch (e: any) {

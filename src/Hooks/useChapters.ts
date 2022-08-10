@@ -1,3 +1,5 @@
+import { CurrentFileContext } from "@/Hooks/useCurrentFile";
+import { useContext } from "react";
 import { useQuery, useQueryClient } from "react-query";
 import { useProject } from "./useProject";
 
@@ -8,6 +10,7 @@ export interface Chapter {
 }
 
 export const useChapters = () => {
+  const { currentFile, setCurrentFile } = useContext(CurrentFileContext);
   const { root, main, saveMain } = useProject();
   const client = useQueryClient();
   const { data, status } = useQuery<Chapter[]>(
@@ -47,9 +50,7 @@ export const useChapters = () => {
 
         return result;
       } catch (e: any) {
-        if (e.code === "NE_FS_NOPATHE") {
-          Electron.filesystem.createDirectory(root + "/chapters");
-        }
+        Electron.filesystem.createDirectory(root + "/chapters");
 
         return [];
       }
@@ -72,9 +73,22 @@ export const useChapters = () => {
     ]);
   };
 
+  const deleteChapter = async (c: Chapter) => {
+    await Electron.filesystem.deleteFile(root + "/chapters/" + c.path);
+
+    client.setQueryData<Chapter[]>(["getChapters", root], (chapters) =>
+      (chapters || []).filter((ch) => ch.path !== c.path)
+    );
+
+    if (currentFile?.path === root + "/chapters/" + c.path) {
+      setCurrentFile(undefined);
+    }
+  };
+
   return {
     chapters: data,
     isLoading: status === "loading",
     addChapter,
+    deleteChapter,
   };
 };

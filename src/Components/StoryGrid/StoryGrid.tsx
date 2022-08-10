@@ -8,8 +8,8 @@ export const StoryGrid = ({ value }: { value: Grid }) => {
   const { saveFile, applyChanges } = useCurrentFile();
   const { grid } = useGridAnalysis(value);
 
-  if (!grid?.scenes || !grid?.scenes.length) {
-    return <Empty />;
+  if (!grid) {
+    return null;
   }
 
   return (

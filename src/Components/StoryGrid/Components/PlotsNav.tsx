@@ -3,9 +3,10 @@ import styles from "@/Components/StoryGrid/Components/PlotsNav.module.scss";
 import { useRef, useState } from "react";
 import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 import { useClickOutside } from "@react-hookz/web";
-import { Modal } from "@/Components/Common/Modal";
+import { Modal, ModalButtons } from "@/Components/Common/Modal";
 import { Input } from "@/Components/Form/Input";
 import { Button } from "@/Components/Form/Button";
+import { FiPlus } from "react-icons/fi";
 
 export const PlotsNav = ({
   plots,
@@ -61,40 +62,42 @@ export const PlotsNav = ({
           </button>
         </section>
       </nav>
-      <Modal
-        title="New subplot"
-        show={showAddSubplot}
-        onDismiss={() => setShowAddSubplot(false)}
-      >
-        <Input
-          label="Title"
-          value={title}
-          type="text"
-          onTextChange={(value) => setTitle(value)}
-        />
-        <div className="flex gap-4 justify-center mt-6">
-          <Button
-            type="button"
-            theme="minor"
-            className="mt-6 w-1/2"
-            onClick={() => {
-              setTitle("");
-              setShowAddSubplot(false);
-            }}
-          >
-            Cancel
-          </Button>
-          <Button
-            onClick={() => {
-              setShowAddSubplot(false);
-              onAddPlot(title);
-            }}
-            className="mt-6 w-1/2"
-            disabled={!title}
-          >
-            Add subplot
-          </Button>
-        </div>
+      <Modal show={showAddSubplot} onDismiss={() => setShowAddSubplot(false)}>
+        <form
+          onSubmit={(e) => {
+            e.stopPropagation();
+            e.preventDefault();
+            setShowAddSubplot(false);
+            onAddPlot(title);
+            onChange(title);
+          }}
+        >
+          <div className="p-8">
+            <Input
+              label="Title"
+              value={title}
+              type="text"
+              onTextChange={(value) => setTitle(value)}
+            />
+          </div>
+
+          <ModalButtons>
+            <Button
+              type="button"
+              theme="minor"
+              onClick={() => {
+                setTitle("");
+                setShowAddSubplot(false);
+              }}
+            >
+              Cancel
+            </Button>
+            <Button type="submit" disabled={!title}>
+              <FiPlus />
+              Add subplot
+            </Button>
+          </ModalButtons>
+        </form>
       </Modal>
     </>
   );

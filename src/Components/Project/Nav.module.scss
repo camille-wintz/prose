@@ -58,3 +58,14 @@
     }
   }
 }
+
+.link {
+  color: $content3;
+  font-weight: 100;
+  font-size: small;
+  transition: all 350ms ease;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}

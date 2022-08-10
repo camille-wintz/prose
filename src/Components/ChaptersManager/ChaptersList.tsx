@@ -1,3 +1,4 @@
+import { DotsMenu } from "@/Components/Common/DotsMenu";
 import { Chapter, useChapters } from "@/Hooks/useChapters";
 import { useProject } from "@/Hooks/useProject";
 import {
@@ -12,7 +13,7 @@ import { useQueryClient } from "react-query";
 
 export const ChaptersList = () => {
   const client = useQueryClient();
-  const { chapters } = useChapters();
+  const { chapters, deleteChapter } = useChapters();
   const { main, saveMain, root } = useProject();
 
   const reorder = (list: Chapter[], startIndex: number, endIndex: number) => {
@@ -62,13 +63,17 @@ export const ChaptersList = () => {
                         style={provided.draggableProps.style}
                       >
                         <TbGripVertical className="text-content-1 hover:text-pink mr-2 h-6 w-6 cursor-move" />
-                        <div className="flex flex-col">
+                        <div className="flex flex-col mr-auto">
                           <h3>{c.path.split(".md")[0]}</h3>
                           <p className="text-content-2 text-sm">
                             {c.content.split(" ").length} words
                           </p>
                         </div>
-                        <FiMoreVertical className="text-pink h-6 w-6 ml-auto cursor-pointer hover:text-blue transition-all" />
+                        <DotsMenu>
+                          <DotsMenu.Item onClick={() => deleteChapter(c)}>
+                            Delete
+                          </DotsMenu.Item>
+                        </DotsMenu>
                       </div>
                     )}
                   </Draggable>

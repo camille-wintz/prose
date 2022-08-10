@@ -2,7 +2,7 @@ import { Li } from "@/Components/Common/Typography";
 
 export const Empty = () => {
   return (
-    <div className="max-w-[960px] m-auto">
+    <div className="max-w-[960px] m-auto p-10">
       <h1 className="text-3xl mt-10">Story Grid</h1>
       <p className="text-content-1 font-semibold text-sm">
         How to setup your story grid

@@ -20,6 +20,9 @@ export const ProjectFiles = () => {
       </h2>
       <div className={styles.files}>
         <div>
+          {projectFiles.length === 0 ? (
+            <div>Keep all your notes in one place</div>
+          ) : null}
           {projectFiles.map((file, i) => (
             <div className="w-full flex items-center py-2 navLine group">
               <div

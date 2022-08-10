@@ -20,7 +20,7 @@ export const setupProse = () => {
       },
       {
         token: "dialog",
-        foreground: "cf9c00",
+        foreground: "09a1ed",
       },
       {
         token: "emphasis",
