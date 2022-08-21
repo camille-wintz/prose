@@ -1,0 +1,55 @@
+@import "@/Styles/Vars";
+
+.container {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+
+  button {
+    text-transform: uppercase;
+    font-weight: bold;
+    color: $blue;
+    transition: all 250ms ease;
+  }
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: 0;
+  transition: all 250ms ease;
+  pointer-events: none;
+  width: 250px;
+  padding-top: 0.25rem;
+
+  &.opened {
+    opacity: 1;
+    top: 100%;
+    pointer-events: all;
+  }
+
+  button {
+    margin-top: 0.25rem;
+    margin-bottom: 0.25rem;
+
+    &:hover {
+      color: $pink;
+    }
+  }
+}
+
+.trigger {
+  padding-bottom: 0.5rem;
+  border-bottom: 3px solid transparent;
+  display: flex;
+  align-items: center;
+
+  &.opened {
+    color: $blue;
+    border-color: $pink;
+  }
+}

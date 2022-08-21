@@ -1,0 +1,21 @@
+@import "@/styles/vars";
+
+.container {
+  color: $pink;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding-bottom: 300px;
+  @apply pl-6;
+  @apply justify-end;
+
+  button {
+    text-transform: uppercase;
+    text-align: left;
+    transition: all 350ms ease;
+
+    &:hover {
+      color: $text;
+    }
+  }
+}

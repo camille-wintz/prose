@@ -1,12 +1,11 @@
-import { useCurrentFile } from "../../Hooks/useCurrentFile";
-import { useProject } from "../../Hooks/useProject";
-import { Editor } from "../Editor/Editor";
-import { StoryGrid } from "../StoryGrid/StoryGrid";
-import { Nav } from "./Nav";
+import { CurrentFile } from "@/components/project/current-file";
+import { MainNav } from "@/components/project/main-nav";
+import { OpenedFiles } from "@/components/project/opened-files";
+import { SearchFile } from "@/components/project/search-file/search-file";
+import { useProject } from "@/hooks/project";
 
 export const Project = () => {
   const { main } = useProject();
-  const { currentFile, saveFile } = useCurrentFile();
 
   if (!main) {
     return null;
@@ -14,29 +13,9 @@ export const Project = () => {
 
   return (
     <div className={`grow h-full flex`}>
-      <Nav />
-      {currentFile && !currentFile.path.endsWith(".storygrid") ? (
-        <>
-          <div className="flex grow overflow-auto justify-center h-full">
-            <Editor
-              value={currentFile.content}
-              onChange={(value) => {
-                saveFile(value);
-              }}
-            />
-          </div>
-        </>
-      ) : null}
-
-      {currentFile && currentFile.path.endsWith(".storygrid") ? (
-        <>
-          <div className="flex flex-col grow overflow-auto justify-center h-full">
-            <StoryGrid
-              value={currentFile.content ? JSON.parse(currentFile.content) : {}}
-            />
-          </div>
-        </>
-      ) : null}
+      <MainNav />
+      <CurrentFile />
+      <OpenedFiles />
     </div>
   );
 };

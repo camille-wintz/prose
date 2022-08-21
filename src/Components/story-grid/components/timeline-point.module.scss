@@ -1,0 +1,74 @@
+@import "@/Styles/Vars";
+
+.plotPoint {
+  position: absolute;
+  right: 1rem;
+  width: 250px;
+  text-align: right;
+  cursor: pointer;
+  padding: 1rem;
+  background-color: transparent;
+  transition: all 350ms ease;
+  border-radius: 8px;
+
+  textarea {
+    width: 100%;
+    height: 200px;
+    background: #f7f4e9;
+    border-bottom: 3px solid;
+    border-top: 3px solid;
+    text-align: right;
+    font-weight: 100;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    margin-top: 0.5rem;
+    border-color: #000000;
+    outline: 0;
+  }
+
+  &:hover {
+    background-color: $pink;
+  }
+
+  &:nth-child(1) {
+    top: 0;
+  }
+
+  &:nth-child(2) {
+    top: 25%;
+  }
+
+  &:nth-child(3) {
+    top: 50%;
+  }
+
+  &:nth-child(4) {
+    top: 75%;
+  }
+
+  &:nth-child(2n) {
+    left: 1rem;
+    text-align: left;
+
+    textarea {
+      text-align: left;
+      margin-right: 0;
+    }
+  }
+
+  h3 {
+    font-size: large;
+    color: $pink;
+  }
+
+  p {
+    font-weight: 100;
+    white-space: pre-line;
+  }
+
+  button {
+    font-weight: bold;
+    color: $blue;
+    font-size: small;
+  }
+}

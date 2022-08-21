@@ -1,14 +1,15 @@
 import { useEffect, useState } from "react";
-import { OpenProject } from "./Components/Project/OpenProject";
-import { Project } from "./Components/Project/Project";
+import { OpenProject } from "./components/project/open-project";
+import { Project } from "./components/project/project";
 import {
   QueryCache,
   QueryClient,
   QueryClientProvider,
   useQueryClient,
 } from "react-query";
-import { CurrentFileContext } from "./Hooks/useCurrentFile";
-import { useProject } from "@/Hooks/useProject";
+import { CurrentFileContext } from "./hooks/current-file";
+import { useProject } from "@/hooks/project";
+import { PlantsImage } from "@/components/common/PlantsImage";
 
 const client = new QueryClient({
   defaultOptions: {
@@ -45,6 +46,7 @@ const AppRoot = () => {
       } justify-center`}
     >
       {!root ? <OpenProject /> : <Project />}
+      <PlantsImage />
     </div>
   );
 };

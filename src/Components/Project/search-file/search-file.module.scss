@@ -1,0 +1,25 @@
+@import "@/styles/vars";
+
+.container {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  height: 100vh;
+  align-items: stretch;
+  justify-content: center;
+  background-color: $pink;
+  width: 0;
+  opacity: 0;
+  transition: all 350ms ease;
+
+  &.visible {
+    width: 290px;
+    opacity: 1;
+  }
+
+  h3,
+  button {
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+}
