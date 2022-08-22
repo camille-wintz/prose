@@ -1,0 +1,19 @@
+.plants-illustration {
+  position: fixed;
+  left: 40px;
+  bottom: 0;
+  transition: all 500ms ease;
+  pointer-events: none;
+
+  img {
+    width: 300px;
+  }
+
+  &.focus {
+    left: calc(50% - 250px);
+
+    img {
+      width: 600px;
+    }
+  }
+}

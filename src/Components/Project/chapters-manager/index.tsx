@@ -1,6 +1,6 @@
 import { ChaptersList } from "@/components/project/chapters-manager/list";
 import { NewChapter } from "@/components/project/chapters-manager/new-chapter";
-import { Modal, ModalButtons } from "@/components/common/Modal";
+import { Modal, ModalButtons } from "@/components/common/modal";
 import { Button } from "@/components/form/button";
 import { useChapters } from "@/hooks/chapters";
 import { useEffect, useRef, useState } from "react";

@@ -79,9 +79,9 @@ export const FilesList = () => {
                         {...provided.draggableProps}
                         {...provided.dragHandleProps}
                         style={provided.draggableProps.style}
-                        className="px-4 py-2 flex items-center w-full"
+                        className="px-4 py-2 flex items-center w-full text-purple"
                       >
-                        <TbGripVertical className="text-content-1 hover:text-pink mr-2 h-6 w-6 cursor-move" />
+                        <TbGripVertical className="text-pink hover:text-text mr-2 h-6 w-6 cursor-move" />
                         {file.path}
                         <FiMoreVertical className="text-pink h-6 w-6 ml-auto cursor-pointer hover:text-blue transition-all" />
                       </div>

@@ -5,6 +5,7 @@ export const Input = ({
   value,
   className,
   label,
+  type = "text",
   ...rest
 }: InputHTMLAttributes<HTMLInputElement> & {
   value: string;
@@ -19,8 +20,9 @@ export const Input = ({
       </div>
       <input
         {...rest}
+        type={type}
         value={value}
-        className="input-text w-full"
+        className="border-2 border-solid rounded-full text-pink w-full"
         onChange={(e) => onTextChange(e.target.value)}
       />
     </>

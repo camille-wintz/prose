@@ -1,11 +1,10 @@
 import { ReactNode } from "react";
-import styles from "@/Components/Form/Button.module.scss";
+import styles from "@/components/form/button.module.scss";
 
 export const Button = ({
   onClick,
   children,
   className,
-  theme = "primary",
   type = "button",
   disabled,
 }: {
@@ -13,13 +12,12 @@ export const Button = ({
   children: ReactNode;
   className?: string;
   to?: string;
-  theme?: "primary" | "minor";
   type?: "button" | "submit";
   disabled?: boolean;
 }) => {
   return (
     <div
-      className={`${className || ""} ${styles.button} ${styles[theme]} ${
+      className={`${className || ""} ${styles.button} ${
         disabled ? styles.disabled : ""
       }`}
     >

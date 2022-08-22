@@ -1,4 +1,4 @@
-import { ModalButtons } from "@/components/common/Modal";
+import { ModalButtons } from "@/components/common/modal";
 import { Button } from "@/components/form/button";
 import { Input } from "@/components/form/input";
 import { useChapters } from "@/hooks/chapters";
@@ -36,7 +36,6 @@ export const NewChapter = ({
       <ModalButtons>
         <Button
           type="button"
-          theme="minor"
           onClick={() => {
             setTitle("");
             onBack();

@@ -1,4 +1,4 @@
-import { ModalButtons } from "@/components/common/Modal";
+import { ModalButtons } from "@/components/common/modal";
 import { Button } from "@/components/form/button";
 import { Input } from "@/components/form/input";
 import { useProjectFiles } from "@/hooks/project-files";
@@ -34,7 +34,7 @@ export const NewFile = ({
         />
       </div>
       <ModalButtons>
-        <Button type="button" theme="minor" onClick={() => onBack()}>
+        <Button type="button" onClick={() => onBack()}>
           Cancel
         </Button>
         <Button disabled={!title} type="submit">

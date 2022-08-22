@@ -1,15 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { OpenProject } from "./components/project/open-project";
 import { Project } from "./components/project/project";
-import {
-  QueryCache,
-  QueryClient,
-  QueryClientProvider,
-  useQueryClient,
-} from "react-query";
-import { CurrentFileContext } from "./hooks/current-file";
+import { QueryClient, QueryClientProvider, useQueryClient } from "react-query";
 import { useProject } from "@/hooks/project";
-import { PlantsImage } from "@/components/common/PlantsImage";
+import { PlantsImage } from "@/components/common/plants-image";
 
 const client = new QueryClient({
   defaultOptions: {

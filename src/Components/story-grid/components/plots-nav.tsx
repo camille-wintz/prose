@@ -3,7 +3,7 @@ import styles from "@/components/story-grid/components/plots-nav.module.scss";
 import { useRef, useState } from "react";
 import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 import { useClickOutside } from "@react-hookz/web";
-import { Modal, ModalButtons } from "@/components/common/Modal";
+import { Modal, ModalButtons } from "@/components/common/modal";
 import { Input } from "@/components/form/input";
 import { Button } from "@/components/form/button";
 import { FiPlus } from "react-icons/fi";

@@ -12,11 +12,13 @@ export const DotsMenu = ({ children }: { children: React.ReactNode }) => {
     <div ref={container} className="relative">
       <FiMoreVertical
         onClick={() => setOpened(!opened)}
-        className="text-pink h-6 w-6 ml-auto cursor-pointer hover:text-blue transition-all"
+        className="text-pink h-6 w-6 ml-auto cursor-pointer hover:text-text transition-all"
       />
       <div
-        className={`absolute transition-all shadow-sm rounded-sm overflow-hidden top-0 right-0 ${
-          opened ? "w-[280px] opacity-100" : "w-0 opacity-0"
+        className={`absolute transition-all shadow-sm rounded-sm overflow-hidden top-0 right-0 bg-purple ${
+          opened
+            ? "w-[280px] opacity-100"
+            : "w-[140px] opacity-0 pointer-events-none"
         }`}
       >
         {children}
@@ -34,7 +36,7 @@ DotsMenu.Item = ({
 }) => {
   return (
     <div
-      className="px-6 py-2 bg-white hover:bg-grey1 cursor-pointer"
+      className="px-6 py-2 hover:bg-pink text-text transition-all bg-purple cursor-pointer"
       onClick={onClick}
     >
       {children}

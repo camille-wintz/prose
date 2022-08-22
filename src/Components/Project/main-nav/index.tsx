@@ -5,10 +5,12 @@ import { useCurrentFile } from "@/hooks/current-file";
 import { useState } from "react";
 import styles from "@/components/project/main-nav/main-nav.module.scss";
 import { useKeyboardEvent } from "@react-hookz/web";
+import { NovelManager } from "@/components/project/novel-manager";
 
 export const MainNav = () => {
   const [showChaptersManager, setShowChaptersManager] = useState(false);
   const [showFilesManager, setShowFilesManager] = useState(false);
+  const [showNovelManager, setShowNovelManager] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
   const { openFile } = useCurrentFile();
 
@@ -26,6 +28,9 @@ export const MainNav = () => {
       openFile("/Story Grid.storygrid");
     }
     if (e.key === "n" && (e.ctrlKey || e.metaKey)) {
+      setShowNovelManager(!showNovelManager);
+    }
+    if (e.key === "k" && (e.ctrlKey || e.metaKey)) {
       openFile("/Statistics.storystats");
     }
   });
@@ -47,9 +52,16 @@ export const MainNav = () => {
           Grid <span className="text-purple">⌘G</span>
         </button>
         <button onClick={() => openFile("/Statistics.storystats")}>
-          Stats <span className="text-purple">⌘N</span>
+          Stats <span className="text-purple">⌘K</span>
+        </button>
+        <button onClick={() => setShowNovelManager(!showNovelManager)}>
+          Novel <span className="text-purple">⌘N</span>
         </button>
       </div>
+      <NovelManager
+        visible={showNovelManager}
+        onDismiss={() => setShowNovelManager(false)}
+      />
       <ChaptersManager
         visible={showChaptersManager}
         onDismiss={() => setShowChaptersManager(false)}

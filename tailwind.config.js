@@ -25,9 +25,9 @@ module.exports = {
       text: "#f4fbdb",
     },
     fontFamily: {
-      display: ["Averia Serif Libre"],
-      sans: ["Open Sans"],
-      serif: ["Source Code Pro"],
+      display: ["Astonia"],
+      sans: ["Fira Sans"],
+      serif: ["Fira Mono"],
     },
   },
   plugins: [],

@@ -1,4 +1,5 @@
-@import url("https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,400;0,600;1,400;1,600&family=Source+Sans+Pro:wght@300;400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Fira+Mono:wght@400;500;700&family=Fira+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,500&display=swap");
+
 @font-face {
   font-family: Astonia;
   src: url("/Astonia.otf");
@@ -20,3 +21,4 @@ body,
 
 @import "@/styles/input";
 @import "@/styles/editor";
+@import "@/styles/plants";

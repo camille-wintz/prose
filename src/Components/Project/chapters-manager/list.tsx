@@ -1,6 +1,7 @@
 import { DotsMenu } from "@/components/common/dots-menu";
-import { Chapter, useChapters } from "@/hooks/chapters";
+import { useChapters } from "@/hooks/chapters";
 import { useProject } from "@/hooks/project";
+import { ProjectFile } from "@/interfaces/project-file";
 import {
   DragDropContext,
   Draggable,
@@ -16,7 +17,11 @@ export const ChaptersList = () => {
   const { chapters, deleteChapter } = useChapters();
   const { main, saveMain, root } = useProject();
 
-  const reorder = (list: Chapter[], startIndex: number, endIndex: number) => {
+  const reorder = (
+    list: ProjectFile[],
+    startIndex: number,
+    endIndex: number
+  ) => {
     const result = Array.from(list);
     const [removed] = result.splice(startIndex, 1);
     result.splice(endIndex, 0, removed);
@@ -35,7 +40,7 @@ export const ChaptersList = () => {
       result.destination.index
     );
 
-    client.setQueryData<Chapter[]>(["getChapters", root], items);
+    client.setQueryData<ProjectFile[]>(["getChapters", root], items);
 
     saveMain({
       ...main,
@@ -62,11 +67,11 @@ export const ChaptersList = () => {
                         {...provided.dragHandleProps}
                         style={provided.draggableProps.style}
                       >
-                        <TbGripVertical className="text-content-1 hover:text-pink mr-2 h-6 w-6 cursor-move" />
+                        <TbGripVertical className="text-pink hover:text-text mr-2 h-6 w-6 cursor-move" />
                         <div className="flex flex-col mr-auto">
                           <h3>{c.path.split(".md")[0]}</h3>
-                          <p className="text-content-2 text-sm">
-                            {c.content.split(" ").length} words
+                          <p className="text-purple text-sm">
+                            {c.content?.split(" ").length} words
                           </p>
                         </div>
                         <DotsMenu>

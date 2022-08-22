@@ -1,4 +1,4 @@
-import { Modal, ModalButtons } from "@/components/common/Modal";
+import { Modal, ModalButtons } from "@/components/common/modal";
 import { FilesList } from "@/components/project/files-manager/list";
 import { NewFile } from "@/components/project/files-manager/new";
 import { Button } from "@/components/form/button";

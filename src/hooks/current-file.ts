@@ -13,7 +13,7 @@ export const useCurrentFile = () => {
   const { root } = useProject();
 
   const { data: current } = useQuery<ProjectFile | undefined>(
-    "getCurrentFile",
+    ["getCurrentFile", root],
     () => {
       const lastOpened = localStorage.getItem("LastOpenedFile");
 
@@ -99,9 +99,9 @@ export const useCurrentFile = () => {
       );
     },
     openFile: async (path: string) => {
-      client.setQueryData("getCurrentFile", undefined);
+      client.setQueryData(["getCurrentFile", root], undefined);
       setTimeout(() => {
-        client.setQueryData("getCurrentFile", {
+        client.setQueryData(["getCurrentFile", root], {
           path: root + path,
         });
 

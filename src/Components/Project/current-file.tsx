@@ -1,9 +1,28 @@
+import { Button } from "@/components/form/button";
 import { Editor } from "@/components/project/editor/editor";
+import { FileWordCount } from "@/components/project/editor/file-word-count";
 import { StoryGrid } from "@/components/story-grid/story-grid";
 import { useCurrentFile } from "@/hooks/current-file";
+import { useProject } from "@/hooks/project";
 
-export const CurrentFile = () => {
+export const CurrentFile = ({ onOpen }) => {
+  const { main } = useProject();
   const { current, saveFile } = useCurrentFile();
+
+  if (!main) {
+    return null;
+  }
+
+  if (!current) {
+    return (
+      <div className="flex flex-col grow justify-center items-center">
+        <h1 className="text-pink font-display text-4xl mb-8">
+          {main.title || "New novel"}
+        </h1>
+        <Button className="text-pink">Open file</Button>
+      </div>
+    );
+  }
 
   return (
     <>
@@ -17,6 +36,7 @@ export const CurrentFile = () => {
               }}
             />
           </div>
+          <FileWordCount />
         </>
       ) : null}
 

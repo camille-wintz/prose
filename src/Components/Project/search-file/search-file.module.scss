@@ -6,20 +6,66 @@
   flex-shrink: 0;
   height: 100vh;
   align-items: stretch;
-  justify-content: center;
+  justify-content: flex-start;
   background-color: $pink;
   width: 0;
   opacity: 0;
   transition: all 350ms ease;
+  pointer-events: none;
+  color: $blue;
 
   &.visible {
     width: 290px;
     opacity: 1;
+    pointer-events: all;
   }
 
   h3,
   button {
     padding-left: 32px;
     padding-right: 32px;
+    text-align: right;
+  }
+
+  button {
+    padding-top: 8px;
+    padding-bottom: 8px;
+    transition: all 350ms ease;
+    border-bottom: 1px solid rgba($darkPink, 0.4);
+    white-space: nowrap;
+
+    &:hover {
+      background-color: $darkPink;
+    }
+  }
+
+  input {
+    border: 2px solid $blue;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    padding-right: 16px;
+    padding-left: 16px;
+    border-radius: 24px;
+    color: $blue;
+    background-color: transparent;
+    margin: 16px;
+
+    &::placeholder {
+      color: $darkPink;
+    }
+  }
+
+  h3 {
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-top: 24px;
+    margin-bottom: 8px;
+  }
+
+  .results {
+    overflow: auto;
+    padding-bottom: 250px;
+    display: flex;
+    flex-direction: column;
   }
 }
