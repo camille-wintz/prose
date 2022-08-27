@@ -22,7 +22,7 @@ const AppRoot = () => {
       client.setQueryData("getRoot", "")
     );
 
-    const unbindOpen = Electron.filesystem.onOpenNovel((path) => {
+    const unbindOpen = Electron.filesystem.onOpenNovel((e, path) => {
       client.setQueryData("getRoot", path);
       localStorage.setItem("LastOpened", path);
     });

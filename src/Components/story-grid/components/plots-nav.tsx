@@ -84,7 +84,6 @@ export const PlotsNav = ({
           <ModalButtons>
             <Button
               type="button"
-              theme="minor"
               onClick={() => {
                 setTitle("");
                 setShowAddSubplot(false);

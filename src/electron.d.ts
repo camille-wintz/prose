@@ -7,7 +7,7 @@ interface IElectron {
     deleteFile: (path: string) => Promise<void>;
     readFile: (path: string) => Promise<string>;
     onClose: (cb: () => void) => () => void;
-    onOpenNovel: (cb: (path: string) => void) => () => void;
+    onOpenNovel: (cb: (e: any, path: string) => void) => () => void;
   };
   clipboard: {
     readText: () => Promise<string>;

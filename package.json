@@ -25,6 +25,7 @@
     "@react-hookz/web": "^15.0.1",
     "@types/lodash": "^4.14.182",
     "@types/react-transition-group": "^4.4.4",
+    "api": "^4.5.2",
     "lodash": "^4.17.21",
     "monaco-editor": "^0.33.0",
     "mz": "^2.7.0",

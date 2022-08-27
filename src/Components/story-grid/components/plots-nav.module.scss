@@ -1,15 +1,16 @@
-@import "@/Styles/Vars";
+@import "@/styles/vars";
 
 .container {
   position: absolute;
-  top: 2rem;
-  right: 2rem;
+  top: 24px;
+  right: 24px;
 
   button {
     text-transform: uppercase;
     font-weight: bold;
-    color: $blue;
+    color: $text;
     transition: all 250ms ease;
+    font-size: large;
   }
 }
 
@@ -49,7 +50,7 @@
   align-items: center;
 
   &.opened {
-    color: $blue;
+    color: $pink;
     border-color: $pink;
   }
 }

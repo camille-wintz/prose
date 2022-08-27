@@ -36,9 +36,7 @@ export const ActsNav = ({
           key={i}
           ref={refs[i]}
           onClick={() => onChange(i)}
-          className={
-            i === actIndex ? "text-content-3 font-bold" : "text-content-1"
-          }
+          className={i === actIndex ? "text-pink " : "text-purple"}
         >
           Act {toRoman[i]}
         </button>
