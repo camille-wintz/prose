@@ -1,0 +1,83 @@
+@import "@/Styles/Vars";
+
+.plotPoint {
+  position: absolute;
+  text-align: right;
+  cursor: pointer;
+  background-color: transparent;
+  transition: all 350ms ease;
+  border-radius: 8px;
+  display: flex;
+  column-gap: 24px;
+
+  .content {
+    width: 250px;
+  }
+
+  .dot {
+    flex-shrink: 0;
+    border-radius: 100%;
+    transform: scale(1);
+    transform-origin: center;
+    transition: all 250ms ease;
+  }
+
+  &:hover {
+    .dot {
+      transform: scale(1.2);
+    }
+  }
+
+  &:hover {
+    h3 {
+      color: $purple;
+    }
+  }
+
+  &:nth-child(1) {
+    top: -26px;
+    left: -351px;
+  }
+
+  &:nth-child(2) {
+    top: 69px;
+    right: -336px;
+  }
+
+  &:nth-child(3) {
+    top: 245px;
+    left: -318px;
+  }
+
+  &:nth-child(4) {
+    top: 496px;
+    left: 262px;
+  }
+
+  &:nth-child(2n) {
+    text-align: left;
+
+    button {
+      text-align: left;
+    }
+  }
+
+  h3 {
+    font-weight: bold;
+    color: $pink;
+    transition: all 350ms ease;
+  }
+
+  p {
+    font-weight: 100;
+    white-space: pre-line;
+    color: $pink;
+  }
+
+  button {
+    color: $purple;
+    font-size: small;
+    text-align: right;
+    font-weight: bold;
+  }
+}

@@ -22,5 +22,6 @@ export const plotPointContents = [
 export interface PlotPoint {
   eventType: PlotPointTypes;
   content: string;
-  scene: string;
+  scene?: string;
+  chapter?: string;
 }

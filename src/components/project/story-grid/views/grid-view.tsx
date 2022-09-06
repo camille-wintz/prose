@@ -1,8 +1,8 @@
-import { ActsNav } from "@/components/story-grid/components/acts-nav";
-import { PlotsNav } from "@/components/story-grid/components/plots-nav";
-import { Timeline } from "@/components/story-grid/components/timeline";
-import { threeActsStructure } from "@/components/story-grid/hooks/story-grid";
-import { Grid } from "@/components/story-grid/interfaces/grid";
+import { ActsNav } from "@/components/project/story-grid/components/acts-nav";
+import { PlotsNav } from "@/components/project/story-grid/components/plots-nav";
+import { Timeline } from "@/components/project/story-grid/components/timeline";
+import { threeActsStructure } from "@/components/project/story-grid/hooks/story-grid";
+import { Grid } from "@/components/project/story-grid/interfaces/grid";
 import { useState } from "react";
 
 export const GridView = ({

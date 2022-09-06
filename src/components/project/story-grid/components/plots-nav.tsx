@@ -1,5 +1,5 @@
-import { Plot } from "@/components/story-grid/interfaces/plot";
-import styles from "@/components/story-grid/components/plots-nav.module.scss";
+import { Plot } from "@/components/project/story-grid/interfaces/plot";
+import styles from "@/components/project/story-grid/components/plots-nav.module.scss";
 import { useRef, useState } from "react";
 import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 import { useClickOutside } from "@react-hookz/web";

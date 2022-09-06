@@ -20,6 +20,9 @@ contextBridge.exposeInMainWorld("Electron", {
     deleteFile: async (path) => {
       return await ipcRenderer.invoke("filesystem:deleteFile", path);
     },
+    rename: async (path, name) => {
+      return await ipcRenderer.invoke("filesystem:rename", path, name);
+    },
     onClose: (cb) => {
       ipcRenderer.on("filesystem:onClose", cb);
 

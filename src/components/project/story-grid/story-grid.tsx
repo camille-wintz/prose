@@ -1,6 +1,6 @@
-import { useGridAnalysis } from "@/components/story-grid/hooks/story-grid";
-import { Grid } from "@/components/story-grid/interfaces/grid";
-import { GridView } from "@/components/story-grid/views/grid-view";
+import { useGridAnalysis } from "@/components/project/story-grid/hooks/story-grid";
+import { Grid } from "@/components/project/story-grid/interfaces/grid";
+import { GridView } from "@/components/project/story-grid/views/grid-view";
 import { useCurrentFile } from "@/hooks/current-file";
 
 export const StoryGrid = ({ value }: { value: Grid }) => {

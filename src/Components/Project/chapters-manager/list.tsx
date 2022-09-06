@@ -12,9 +12,13 @@ import { FiMoreVertical } from "react-icons/fi";
 import { TbGripVertical } from "react-icons/tb";
 import { useQueryClient } from "react-query";
 
-export const ChaptersList = () => {
+export const ChaptersList = ({
+  onOpenView,
+}: {
+  onOpenView: (view: "list" | "new" | "rename", chapter?: ProjectFile) => void;
+}) => {
   const client = useQueryClient();
-  const { chapters, deleteChapter } = useChapters();
+  const { chapters, deleteChapter, renameChapter } = useChapters();
   const { main, saveMain, root } = useProject();
 
   const reorder = (
@@ -77,6 +81,11 @@ export const ChaptersList = () => {
                         <DotsMenu>
                           <DotsMenu.Item onClick={() => deleteChapter(c)}>
                             Delete
+                          </DotsMenu.Item>
+                          <DotsMenu.Item
+                            onClick={() => onOpenView("rename", c)}
+                          >
+                            Rename
                           </DotsMenu.Item>
                         </DotsMenu>
                       </div>

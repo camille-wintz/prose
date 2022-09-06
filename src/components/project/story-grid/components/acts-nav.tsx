@@ -1,6 +1,5 @@
-import { Act } from "@/components/story-grid/interfaces/act";
-import styles from "@/components/story-grid/components/acts-nav.module.scss";
-import React from "react";
+import { Act } from "@/components/project/story-grid/interfaces/act";
+import styles from "@/components/project/story-grid/components/acts-nav.module.scss";
 import { useRef } from "react";
 import { useEffect } from "react";
 

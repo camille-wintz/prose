@@ -1,11 +1,12 @@
 import { Button } from "@/components/form/button";
 import { Editor } from "@/components/project/editor/editor";
 import { FileWordCount } from "@/components/project/editor/file-word-count";
-import { StoryGrid } from "@/components/story-grid/story-grid";
+import { StoryGrid } from "@/components/project/story-grid/story-grid";
+import { StoryStats } from "@/components/project/story-stats";
 import { useCurrentFile } from "@/hooks/current-file";
 import { useProject } from "@/hooks/project";
 
-export const CurrentFile = ({ onOpen }) => {
+export const CurrentFile = () => {
   const { main } = useProject();
   const { current, saveFile } = useCurrentFile();
 
@@ -26,7 +27,10 @@ export const CurrentFile = ({ onOpen }) => {
 
   return (
     <>
-      {current && !current.path.endsWith(".storygrid") && current.content ? (
+      {current &&
+      !current.path.endsWith(".storygrid") &&
+      !current.path.endsWith(".storystats") &&
+      current.content ? (
         <>
           <div className="flex grow overflow-auto justify-center h-full">
             <Editor
@@ -46,6 +50,14 @@ export const CurrentFile = ({ onOpen }) => {
             <StoryGrid
               value={current.content ? JSON.parse(current.content) : {}}
             />
+          </div>
+        </>
+      ) : null}
+
+      {current && current.path.endsWith(".storystats") ? (
+        <>
+          <div className="flex flex-col grow overflow-auto justify-center h-full">
+            <StoryStats />
           </div>
         </>
       ) : null}

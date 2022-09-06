@@ -30,6 +30,17 @@ export const useChapters = () => {
           });
         }
 
+        const deletedChapters = main.chapters?.filter(
+          (f) => !chapterFiles.includes(f)
+        );
+
+        if (deletedChapters.length > 0) {
+          saveMain({
+            ...main,
+            chapters: main.chapters.filter((f) => !deletedChapters.includes(f)),
+          });
+        }
+
         const chapters = [...(main.chapters || []), ...missingChapters];
         const result = [];
         for (let chapter of chapters) {
@@ -80,10 +91,24 @@ export const useChapters = () => {
     }
   };
 
+  const renameChapter = async (c: ProjectFile, newName: string) => {
+    await Electron.filesystem.rename(
+      root + "/chapters/" + c.path,
+      root + "/chapters/" + newName + ".md"
+    );
+
+    client.setQueryData<ProjectFile[]>(["getChapters", root], (chapters) =>
+      (chapters || []).map((ch) =>
+        ch.path !== c.path ? ch : { ...c, path: newName + ".md" }
+      )
+    );
+  };
+
   return {
     chapters: data,
     isLoading: status === "loading",
     addChapter,
     deleteChapter,
+    renameChapter,
   };
 };

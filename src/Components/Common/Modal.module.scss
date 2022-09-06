@@ -33,9 +33,9 @@
 }
 
 .modal {
-  background-color: $blue;
+  background-color: $brightBlue;
   position: relative;
-  border-radius: 4px;
+  border-radius: 16px;
   width: 450px;
   box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.25);
   transition: all 500ms ease;
@@ -43,6 +43,11 @@
   max-height: calc(100vh - 100px);
   z-index: 60;
   color: $pink;
+
+  > h1 {
+    position: absolute;
+    top: -80px;
+  }
 }
 
 .footer {

@@ -1,9 +1,10 @@
-import { Chapter, useChapters } from "@/hooks/chapters";
+import { useChapters } from "@/hooks/chapters";
 import { useProject } from "@/hooks/project";
 import { useEffect, useState } from "react";
 import { uniq } from "lodash";
-import { Grid } from "@/components/story-grid/interfaces/grid";
-import { PlotPointTypes } from "@/components/story-grid/interfaces/plot-point";
+import { Grid } from "@/components/project/story-grid/interfaces/grid";
+import { PlotPointTypes } from "@/components/project/story-grid/interfaces/plot-point";
+import { ProjectFile } from "@/interfaces/project-file";
 
 export const threeActsStructure = () =>
   [0, 1, 2].map((a) => ({
@@ -38,7 +39,7 @@ export const useGridAnalysis = (gridFile: Grid) => {
     }
   }, [JSON.stringify(gridFile)]);
 
-  const analyzeChapters = async (chapters: Chapter[]) => {
+  const analyzeChapters = async (chapters: ProjectFile[]) => {
     let content = "";
     for (let chapter of chapters) {
       content += await Electron.filesystem.readFile(

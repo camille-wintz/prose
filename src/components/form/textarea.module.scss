@@ -1,0 +1,12 @@
+@import "@/styles/vars";
+
+.textarea {
+  background-color: $darkBlue;
+  font-family: "Fira Code", monospace;
+  color: $pink;
+  padding: 24px;
+  line-height: 24px;
+  min-height: 400px;
+  width: 100%;
+  border-radius: 8px;
+}

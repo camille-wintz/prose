@@ -5,6 +5,7 @@ interface IElectron {
     createDirectory: (path: string) => Promise<void>;
     writeFile: (path: string, content: string) => Promise<void>;
     deleteFile: (path: string) => Promise<void>;
+    rename: (path: string, newName: string) => Promise<void>;
     readFile: (path: string) => Promise<string>;
     onClose: (cb: () => void) => () => void;
     onOpenNovel: (cb: (e: any, path: string) => void) => () => void;

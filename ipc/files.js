@@ -35,6 +35,10 @@ const files = (mainWindow) => {
     return await fs.rm(path);
   });
 
+  ipcMain.handle("filesystem:rename", async (event, path, name) => {
+    return await fs.rename(path, name);
+  });
+
   ipcMain.handle("filesystem:readFile", async (event, path) => {
     const result = await fs.readFile(path);
     return result.toString();
