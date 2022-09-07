@@ -1,12 +1,15 @@
 import { Button } from "@/components/form/button";
+import { SearchContext } from "@/components/project/context";
 import { Editor } from "@/components/project/editor/editor";
 import { FileWordCount } from "@/components/project/editor/file-word-count";
 import { StoryGrid } from "@/components/project/story-grid/story-grid";
 import { StoryStats } from "@/components/project/story-stats";
 import { useCurrentFile } from "@/hooks/current-file";
 import { useProject } from "@/hooks/project";
+import { useContext } from "react";
 
 export const CurrentFile = () => {
+  const { showSearch, setShowSearch } = useContext(SearchContext);
   const { main } = useProject();
   const { current, saveFile } = useCurrentFile();
 
@@ -20,7 +23,9 @@ export const CurrentFile = () => {
         <h1 className="text-pink font-display text-4xl mb-8">
           {main.title || "New novel"}
         </h1>
-        <Button className="text-pink">Open file</Button>
+        <Button onClick={() => setShowSearch(true)} className="text-pink">
+          Open file
+        </Button>
       </div>
     );
   }

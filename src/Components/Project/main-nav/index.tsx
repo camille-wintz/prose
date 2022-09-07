@@ -2,16 +2,18 @@ import { ChaptersManager } from "@/components/project/chapters-manager";
 import { FilesManager } from "@/components/project/files-manager/manager";
 import { SearchFile } from "@/components/project/search-file/search-file";
 import { useCurrentFile } from "@/hooks/current-file";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import styles from "@/components/project/main-nav/main-nav.module.scss";
 import { useKeyboardEvent } from "@react-hookz/web";
 import { NovelManager } from "@/components/project/novel-manager";
+import { SearchContext } from "@/components/project/context";
 
 export const MainNav = () => {
+  const { showSearch, setShowSearch } = useContext(SearchContext);
   const [showChaptersManager, setShowChaptersManager] = useState(false);
   const [showFilesManager, setShowFilesManager] = useState(false);
   const [showNovelManager, setShowNovelManager] = useState(false);
-  const [showSearch, setShowSearch] = useState(false);
+
   const { openFile } = useCurrentFile();
 
   useKeyboardEvent(true, (e) => {
